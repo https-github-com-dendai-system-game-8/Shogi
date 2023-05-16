@@ -9,19 +9,21 @@ public class PiecesMove: MonoBehaviour
     public static bool isMoveStage = false;
     private GameObject[] pieces;//駒
     private GameObject[] grid;//マス
-    private GridStatus[] gridStatus;//駒のステータス
+    private GridStatus[] gridStatus;//マスのステータス
     private PiecesStatus[] piecesStatus;//駒のステータス
+    private Transform[] gridTransform; 
     private int tmp = 0;
+    private float gridSize = 1.012f;
     // Start is called before the first frame update
     void Start()
     {
-        Transform go;
-        for (int j = -4; j < 5; j++)
+        GameObject go;
+        for (int j = 4; j > -5; j--)
         {
             for (int i = -4; i < 5; i++)
             {
-                go = Instantiate(gridCollider).transform;
-                go.position = new Vector3(j * 1.012f, 0, i * 1.012f);
+                go = Instantiate(gridCollider);
+                go.transform.position = new Vector3(i * gridSize, j * gridSize,0 );
             }
         }
         pieces = GameObject.FindGameObjectsWithTag("Pieces");
@@ -32,9 +34,12 @@ public class PiecesMove: MonoBehaviour
         }
         grid = GameObject.FindGameObjectsWithTag("Grid");
         gridStatus = new GridStatus[grid.Length];
+        gridTransform = new Transform[grid.Length];
         for (int i = 0; i < grid.Length; i++)
         {
+            gridTransform[i] = grid[i].GetComponent<Transform>();
             gridStatus[i] = grid[i].GetComponent<GridStatus>();
+            gridStatus[i].myPosition = new Vector2(gridTransform[i].position.z / gridSize + 4, gridTransform[i].position.x / gridSize + 4);
         }
     }
 
@@ -43,7 +48,6 @@ public class PiecesMove: MonoBehaviour
     {
         if (isMoveStage)
         {
-            Debug.Log(gridStatus.Length);
             for (int i = 0; i < gridStatus.Length; i++)
             {
                 

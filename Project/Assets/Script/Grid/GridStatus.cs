@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class GridStatus : MonoBehaviour,IPointerClickHandler
 {
+    public Vector2 myPosition;//‚±‚Ìƒ}ƒX‚ÌˆÊ’u
     public bool isSelect = false;
     // Start is called before the first frame update
 
