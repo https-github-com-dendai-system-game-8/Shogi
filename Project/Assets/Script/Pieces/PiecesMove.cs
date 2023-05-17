@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,13 +8,14 @@ public class PiecesMove: MonoBehaviour
 {
     [SerializeField] GameObject gridCollider;//グリッドの当たり判定
     public static bool isMoveStage = false;
+    public static float gridSize = 1.012f;
     private GameObject[] pieces;//駒
     private GameObject[] grid;//マス
     private GridStatus[] gridStatus;//マスのステータス
     private PiecesStatus[] piecesStatus;//駒のステータス
     private Transform[] gridTransform; 
     private int tmp = 0;
-    private float gridSize = 1.012f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +41,7 @@ public class PiecesMove: MonoBehaviour
         {
             gridTransform[i] = grid[i].GetComponent<Transform>();
             gridStatus[i] = grid[i].GetComponent<GridStatus>();
-            gridStatus[i].myPosition = new Vector2(gridTransform[i].position.z / gridSize + 4, gridTransform[i].position.x / gridSize + 4);
+            gridStatus[i].myPosition = new Vector2(gridTransform[i].position.x/ gridSize + 4, gridTransform[i].position.y / gridSize + 4);
         }
     }
 
@@ -51,13 +53,21 @@ public class PiecesMove: MonoBehaviour
             for (int i = 0; i < gridStatus.Length; i++)
             {
                 
-                if (gridStatus[i].isSelect)//移動先の選択が完了していたら移動させる
+                if (gridStatus[i].isSelect && MoveLimit(i))//移動先の選択が完了していたら移動させる
                 {
                     pieces[tmp].transform.position = grid[i].transform.position;
                     piecesStatus[tmp].isSelect = false;
                     gridStatus[i].isSelect = false;
                     isMoveStage = false;
                     Debug.Log("移動終わったよ");
+                    break;
+                }
+                else if (gridStatus[i].isSelect && !MoveLimit(i))
+                {
+                    Debug.Log("そこは移動できません\n移動モード解除");
+                    gridStatus[i].isSelect = false;
+                    isMoveStage = false;
+                    piecesStatus[tmp].isSelect = false;
                     break;
                 }
             }
@@ -75,5 +85,25 @@ public class PiecesMove: MonoBehaviour
                 }
             }
         }
+    }
+
+    private bool MoveLimit(int gridNumber)//移動可能先かどうかを確かめる
+    {
+        bool isCanMove = false;
+        Vector2 deltaPosition;//ココと駒の位置が合えば移動可能
+        List<Vector2> limit = piecesStatus[tmp].distination;
+        for(int i = 0;i < limit.Count; i++)
+        {
+            deltaPosition = new Vector2(gridStatus[gridNumber].myPosition.x  - limit[i].x, gridStatus[gridNumber].myPosition.y - limit[i].y);
+            Debug.Log(deltaPosition);
+            Debug.Log(piecesStatus[tmp].piecePosition);
+            if(deltaPosition == piecesStatus[tmp].piecePosition)
+            {
+                isCanMove = true;
+                break;
+            }
+        }
+        //Debug.Log(gridStatus[gridNumber].myPosition);
+        return isCanMove;
     }
 }

@@ -9,9 +9,14 @@ public class GridStatus : MonoBehaviour,IPointerClickHandler
     public Vector2 myPosition;//‚±‚Ìƒ}ƒX‚ÌˆÊ’u
     public bool isSelect = false;
     // Start is called before the first frame update
-
+    
+    void OnEnable()
+    {
+        myPosition = new Vector2(transform.position.x - 4 * PiecesMove.gridSize, transform.position.y - 4 * PiecesMove.gridSize); 
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
+         
         if (PiecesMove.isMoveStage)
         {
             isSelect = true;
