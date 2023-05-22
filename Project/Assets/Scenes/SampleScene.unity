@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5515944098474016046, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type1 (3)
+      value: fu4
       objectReference: {fileID: 0}
     - target: {fileID: 5515944098474016048, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_RootOrder
@@ -193,7 +193,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5515944098474016046, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type1 (4)
+      value: fu5
       objectReference: {fileID: 0}
     - target: {fileID: 5515944098474016048, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_RootOrder
@@ -254,7 +254,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5515944098474016046, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type1 (8)
+      value: fu9
       objectReference: {fileID: 0}
     - target: {fileID: 5515944098474016048, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_RootOrder
@@ -315,7 +315,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5515944098474016046, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type1 (5)
+      value: fu6
       objectReference: {fileID: 0}
     - target: {fileID: 5515944098474016048, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_RootOrder
@@ -376,7 +376,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1523415369644149772, guid: 03681558a73cd89479a8557c0855c63f, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type13 (1)
+      value: keima2
       objectReference: {fileID: 0}
     - target: {fileID: 1523415369644149776, guid: 03681558a73cd89479a8557c0855c63f, type: 3}
       propertyPath: type
@@ -437,7 +437,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5515944098474016046, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type1 (1)
+      value: fu2
       objectReference: {fileID: 0}
     - target: {fileID: 5515944098474016048, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_RootOrder
@@ -640,7 +640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443924954098788988, guid: 1f3b89180faf66349a5bbbb6a1caf5de, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type12 (1)
+      value: kyousha2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f3b89180faf66349a5bbbb6a1caf5de, type: 3}
@@ -653,7 +653,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5515944098474016046, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type1 (2)
+      value: fu3
       objectReference: {fileID: 0}
     - target: {fileID: 5515944098474016048, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_RootOrder
@@ -1032,7 +1032,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6357296582683689726, guid: 7bb4d27b7d1c1884d942b2537cd31782, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type14 (1)
+      value: ginshou2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bb4d27b7d1c1884d942b2537cd31782, type: 3}
@@ -1045,7 +1045,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5515944098474016046, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type1 (7)
+      value: fu8
       objectReference: {fileID: 0}
     - target: {fileID: 5515944098474016048, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_RootOrder
@@ -1335,7 +1335,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4528462443261033356, guid: 1ae9faac59e165e44bce1a8d21c02d0d, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type15 (1)
+      value: kinshou1
       objectReference: {fileID: 0}
     - target: {fileID: 4528462443261033360, guid: 1ae9faac59e165e44bce1a8d21c02d0d, type: 3}
       propertyPath: type
@@ -1494,7 +1494,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5515944098474016046, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type1 (6)
+      value: fu7
       objectReference: {fileID: 0}
     - target: {fileID: 5515944098474016048, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_RootOrder
@@ -1599,7 +1599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8213969224515144025, guid: 4e95bb0321b970145813271dff2e6f23, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type10
+      value: kaku
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e95bb0321b970145813271dff2e6f23, type: 3}
@@ -1656,7 +1656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6357296582683689726, guid: 7bb4d27b7d1c1884d942b2537cd31782, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type14
+      value: ginshou1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bb4d27b7d1c1884d942b2537cd31782, type: 3}
@@ -1669,7 +1669,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4528462443261033356, guid: 1ae9faac59e165e44bce1a8d21c02d0d, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type15
+      value: kinshou1
       objectReference: {fileID: 0}
     - target: {fileID: 4528462443261033362, guid: 1ae9faac59e165e44bce1a8d21c02d0d, type: 3}
       propertyPath: m_RootOrder
@@ -1726,7 +1726,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5515944098474016046, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type1
+      value: fu1
       objectReference: {fileID: 0}
     - target: {fileID: 5515944098474016048, guid: 5c1068ec08382a44ca179d7a9b7231d2, type: 3}
       propertyPath: m_RootOrder
@@ -1783,7 +1783,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2822284427053067850, guid: c4cc35f253898bb4f9c96542249d1a55, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type11
+      value: hisha
       objectReference: {fileID: 0}
     - target: {fileID: 2822284427053067860, guid: c4cc35f253898bb4f9c96542249d1a55, type: 3}
       propertyPath: m_RootOrder
@@ -1840,7 +1840,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1767287288431951588, guid: 9bf60c3473fd9bc4fb98a20c5122f907, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type16
+      value: oushou
       objectReference: {fileID: 0}
     - target: {fileID: 1767287288431951610, guid: 9bf60c3473fd9bc4fb98a20c5122f907, type: 3}
       propertyPath: m_RootOrder
@@ -1897,7 +1897,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1523415369644149772, guid: 03681558a73cd89479a8557c0855c63f, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type13
+      value: keima1
       objectReference: {fileID: 0}
     - target: {fileID: 1523415369644149778, guid: 03681558a73cd89479a8557c0855c63f, type: 3}
       propertyPath: m_RootOrder
@@ -1998,7 +1998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443924954098788988, guid: 1f3b89180faf66349a5bbbb6a1caf5de, type: 3}
       propertyPath: m_Name
-      value: ShogiPiece_type12
+      value: kyousha1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f3b89180faf66349a5bbbb6a1caf5de, type: 3}

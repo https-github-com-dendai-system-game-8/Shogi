@@ -13,17 +13,15 @@ public class GridStatus : MonoBehaviour,IPointerClickHandler
     
     void OnEnable()
     {
-        myPosition = new Vector2(transform.position.x - 4 * PiecesMove.gridSize, transform.position.y - 4 * PiecesMove.gridSize); 
+        myPosition = new Vector2(transform.position.x - 4 * PiecesMove.gridSize, transform.position.y - 4 * PiecesMove.gridSize);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-         
         if (PiecesMove.isMoveStage)
         {
             isSelect = true;
             Debug.Log("à⁄ìÆêÊÇ…ëIÇŒÇÍÇΩ");
         }
-        
     }
 }

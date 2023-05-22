@@ -8,7 +8,7 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
 {
     [SerializeField] GameObject gridCollider;//マスの当たり判定
     public static bool isMoveStage = false;//駒を選択しているかどうか
-    public static float gridSize = 1.012f;//マスのサイズ
+    public static float gridSize = 1f;//マスのサイズ
     private GameObject[] pieces;//駒
     private PieceStatus[] pieceStatus;//駒のステータス
     private Collider[] piecesCollider;//駒の判定
@@ -136,8 +136,7 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
                     Debug.Log("x方向の移動を確認");
                     for (float j = 0; Mathf.Abs(j) < Mathf.Abs(tmpgrid.myPosition.x - selectedPiece.piecePosition.x); j += (tmpgrid.myPosition.x - selectedPiece.piecePosition.x) / Mathf.Abs(tmpgrid.myPosition.x - selectedPiece.piecePosition.x))//ココから間に駒があるかどうか確認
                     {
-
-                        if (pieceStatus[i].piecePosition.x == j + selectedPiece.piecePosition.x + (tmpgrid.myPosition.y - selectedPiece.piecePosition.y) / Mathf.Abs(tmpgrid.myPosition.x - selectedPiece.piecePosition.x) && tmpgrid.myPosition.y - pieceStatus[i].piecePosition.y == 0)
+                        if (pieceStatus[i].piecePosition.x == j + selectedPiece.piecePosition.x + (tmpgrid.myPosition.x - selectedPiece.piecePosition.x) / Mathf.Abs(tmpgrid.myPosition.x - selectedPiece.piecePosition.x) && tmpgrid.myPosition.y - pieceStatus[i].piecePosition.y == 0)
                         {
                             return false;
                         }
@@ -154,9 +153,7 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
                         }
                     }
                 }
-                Debug.Log(pieceStatus[i].piecePosition.y == 0 + selectedPiece.piecePosition.y + (tmpgrid.myPosition.y - selectedPiece.piecePosition.y) / Mathf.Abs(tmpgrid.myPosition.y - selectedPiece.piecePosition.y));
-
-
+               
             }
             else if(selectedPiece.type == 10 && tmpgrid.myPosition.x - selectedPiece.piecePosition.x != 0 &&tmpgrid.myPosition.y - selectedPiece.piecePosition.y != 0)
             {

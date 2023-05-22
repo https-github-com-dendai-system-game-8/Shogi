@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using System.IO;
 using UnityEditor;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class PieceStatus : MonoBehaviour,IPointerClickHandler
 {
@@ -94,7 +95,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 }
                 break;
             case 11:
-                startPosition = new Vector2(2, 1);
+                startPosition = new Vector2(1, 1);
                 for(int n = -8;n < 9; n++)
                 {
                     distination.Add(new Vector2(n, 0));
