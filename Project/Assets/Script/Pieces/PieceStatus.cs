@@ -15,6 +15,8 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
     public Vector2 startPosition;//駒の初期位置
     public List<Vector2> distination;//駒の移動可能先
     public int type;//駒の種類
+    public bool canPromotion = true;//成れるかどうか
+    public Sprite promotionSprite;//成った後の見た目
 
     public bool isSelect = false;//この駒が選ばれているかどうか
     public Vector2 piecePosition;//現在の駒の位置
@@ -46,7 +48,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
         return isSelect;
     }
 
-    private void CheckMove()
+    public void CheckMove()
     {
         switch (type)
         {
@@ -61,6 +63,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
             case 3:
                 startPosition = new Vector2(6, 2);
                 distination.Add(new Vector2(0, 1));
+                
                 break;
             case 4:
                 startPosition = new Vector2(5, 2);
@@ -128,6 +131,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 distination.Add(new Vector2(1, 1));
                 distination.Add(new Vector2(-0, -1));
                 distination.Add(new Vector2(1, 0));
+                canPromotion = false;
                 break;
             case 16:
                 startPosition = new Vector2(4, 0);
@@ -139,6 +143,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 distination.Add(new Vector2(1, 0));
                 distination.Add(new Vector2(-1, -1));
                 distination.Add(new Vector2(1, -1));
+                canPromotion = false;
                 break;
             case 17:
                 startPosition = new Vector2(3, 0);
@@ -148,6 +153,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 distination.Add(new Vector2(1, 1));
                 distination.Add(new Vector2(-0, -1));
                 distination.Add(new Vector2(1, 0));
+                canPromotion = false;
                 break;
             case 18:
                 startPosition = new Vector2(2, 0);
@@ -168,6 +174,42 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 {
                     distination.Add(new Vector2(0, Mathf.Abs(n)));
                 }
+                break;
+            case 21:
+                startPosition = new Vector2(0, 0);
+                distination.Add(new Vector2(-1, 1));
+                distination.Add(new Vector2(0, 1));
+                distination.Add(new Vector2(-1, 0));
+                distination.Add(new Vector2(1, 1));
+                distination.Add(new Vector2(-0, -1));
+                distination.Add(new Vector2(1, 0));
+                canPromotion = false;
+                break;
+            case 22:
+                startPosition = new Vector2(0, 0);
+                for (int n = -8; n < 9; n++)
+                {
+                    distination.Add(new Vector2(n, n));
+                    distination.Add(new Vector2(n, -n));
+                }
+                distination.Add(new Vector2(1, 0));
+                distination.Add(new Vector2(0, -1));
+                distination.Add(new Vector2(-1, 0));
+                distination.Add(new Vector2(0, 1));
+                canPromotion = false;
+                break;
+            case 23:
+                startPosition = new Vector2(0, 0);
+                for (int n = -8; n < 9; n++)
+                {
+                    distination.Add(new Vector2(n, 0));
+                    distination.Add(new Vector2(0, n));
+                }
+                distination.Add(new Vector2(1, 1));
+                distination.Add(new Vector2(1, -1));
+                distination.Add(new Vector2(-1, -1));
+                distination.Add(new Vector2(-1, 1));
+                canPromotion = false;
                 break;
         }
         distination.Remove(new Vector2(0, 0));

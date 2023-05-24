@@ -17,6 +17,7 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
     private Transform[] gridTransform; //マスの位置
     private int tmp = 0;//選択した駒の番号
     private SpriteRenderer pieceSprite;//駒の見た目など
+    [SerializeField]private Select sel;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +70,11 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
                     foreach (var col in piecesCollider)//駒の判定を戻す
                     {
                         col.enabled = true;
+                    }
+                    pieceStatus[tmp].piecePosition = (pieces[tmp].transform.position) / gridSize + new Vector3(4, 4, 0);
+                    if (pieceStatus[tmp].piecePosition.y >= 6 && pieceStatus[tmp].canPromotion)
+                    {
+                        sel.OnClick();
                     }
                     break;
                 }
@@ -128,7 +134,7 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
             {
                 return false;
             }
-            if(selectedPiece.type == 11 || selectedPiece.type == 12 || selectedPiece.type == 20)
+            if(selectedPiece.type == 11 || selectedPiece.type == 12 || selectedPiece.type == 20 || selectedPiece.type == 23)
             {
                 //bool bitweenX = false, bitweenY = false;
                 if(tmpgrid.myPosition.x - selectedPiece.piecePosition.x != 0 && tmpgrid.myPosition.y - selectedPiece.piecePosition.y == 0)
@@ -155,7 +161,7 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
                 }
                
             }
-            else if(selectedPiece.type == 10 && tmpgrid.myPosition.x - selectedPiece.piecePosition.x != 0 &&tmpgrid.myPosition.y - selectedPiece.piecePosition.y != 0)
+            else if((selectedPiece.type == 10 || selectedPiece.type == 22 ) && tmpgrid.myPosition.x - selectedPiece.piecePosition.x != 0 &&tmpgrid.myPosition.y - selectedPiece.piecePosition.y != 0)
             {
                 for(float j = 0; Mathf.Abs(j) < Mathf.Abs(tmpgrid.myPosition.x - selectedPiece.piecePosition.x); j += (tmpgrid.myPosition.x - selectedPiece.piecePosition.x) / Mathf.Abs(tmpgrid.myPosition.x - selectedPiece.piecePosition.x))
                     {
@@ -178,6 +184,21 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
             }
         }
         return isCanMove;//移動可能かどうかを返す
+    }
+
+    public void CheckPromotion()
+    {
+        int localPs = pieceStatus[tmp].type;
+        if ((localPs >= 1 && localPs <= 9) || (localPs >= 12 && localPs <= 14) || (localPs >= 18 && localPs <= 20))
+            localPs = 21;
+        else if (localPs == 10)
+            localPs = 22;
+        else if (localPs == 11)
+            localPs = 23;
+        pieceStatus[tmp].type = localPs;
+        pieceStatus[tmp].CheckMove();
+        pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
+        pieceSprite.sprite = pieceStatus[tmp].promotionSprite;
     }
 
 }
