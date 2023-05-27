@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Select : MonoBehaviour
 {
     private GameObject[] choice;//YESとNOのボタンを取得
-    private GameObject[] log;//テキストオブジェクトを取得
 
     [SerializeField]private Text logText;//ログを出すテキストオブジェクト
 
@@ -15,27 +14,16 @@ public class Select : MonoBehaviour
     private void Awake()
     {
         choice = GameObject.FindGameObjectsWithTag("TwoChoice");
-        log = GameObject.FindGameObjectsWithTag("AfterChoice");
         foreach(var obj in choice)
         {
             obj.SetActive(false);
         }
     }
-    private void OnEnable()
-    {
-        foreach (var obj in log)
-        {
-            obj.SetActive(false);
-        }
-    }
+
     public void OnClick()
     {
 
         foreach(var obj in choice)
-        {
-            obj.SetActive(true);
-        }
-        foreach(var obj in log)
         {
             obj.SetActive(true);
         }
@@ -48,10 +36,7 @@ public class Select : MonoBehaviour
         {
             obj.SetActive(false);
         }
-        foreach(var obj in log)
-        {
-            obj.SetActive(false);
-        }
+        logText.text = "log";
         if(FindObjectOfType<Selectable>() != null) FindObjectOfType<Selectable>().Select();
 
     }

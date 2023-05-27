@@ -7,7 +7,7 @@ public class CameraManager : MonoBehaviour
 {
     public Transform m_target;
     [SerializeField] private int speed;
-    public float m_rotateSpeed = 1000;
+    public float m_rotateSpeed = 10;
 
     private void Update()
     {

@@ -9,16 +9,14 @@ public class GridStatus : MonoBehaviour,IPointerClickHandler
     public Vector2 myPosition;//このマスの位置
     public bool isSelect = false;//このマスが選ばれたかどうか
     public bool pieceIsOn = false;//このマスに駒が乗ってるかどうか
-    // Start is called before the first frame update
-    
-    void OnEnable()
+    private PiecesMove pm;
+    void Start()
     {
-        myPosition = new Vector2(transform.position.x - 4 * PiecesMove.gridSize, transform.position.y - 4 * PiecesMove.gridSize);
+        pm = GameObject.FindGameObjectWithTag("ShogiStage").GetComponent<PiecesMove>();
     }
-
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (PiecesMove.isMoveStage)
+        if (pm.isMoveStage && pm.isCanTouch)
         {
             isSelect = true;
             Debug.Log("移動先に選ばれた");
