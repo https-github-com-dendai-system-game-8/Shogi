@@ -354,7 +354,7 @@
 "Assets/Script/Grid/GridStatus.cs"
 "Assets/Script/Pieces/PiecesMove.cs"
 "Assets/Script/Pieces/PieceStatus.cs"
-"Assets/Script/Pieces/Select.cs"
+"Assets/Script/Select.cs"
 -langversion:9.0
 
 /deterministic

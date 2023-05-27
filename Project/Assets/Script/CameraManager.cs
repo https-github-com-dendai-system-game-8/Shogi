@@ -11,8 +11,18 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        transform.RotateAround(m_target.position, Vector3.forward, m_rotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
-        transform.Translate(Input.GetAxis("Vertical") * Vector3.forward * speed * Time.deltaTime);
-        //transform.LookAt(m_target);
+        if(tag == "MainCamera")
+        {
+            transform.RotateAround(m_target.position, Vector3.forward, m_rotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
+            transform.Translate(Input.GetAxis("Vertical") * Vector3.forward * speed * Time.deltaTime);
+            //transform.LookAt(m_target);
+        }
+        else if(tag == "SubCamera")
+        {
+            transform.RotateAround(m_target.position, Vector3.forward, m_rotateSpeed * -Input.GetAxis("Horizontal2") * Time.deltaTime);
+            transform.Translate(Input.GetAxis("Vertical2") * Vector3.forward * speed * Time.deltaTime);
+            //transform.LookAt(m_target);
+        }
+
     }
 }

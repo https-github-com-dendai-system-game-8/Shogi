@@ -42,7 +42,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!pm.isMoveStage && pm.isCanTouch)
+        if (!pm.isMoveStage && pm.isCanTouch && player == pm.turn)
         {
             isSelect = true;
             Debug.Log("‘I‚Î‚ê‚½");
@@ -285,11 +285,13 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
             startPosition -= new Vector2(4, 4);
             startPosition *= -1;
             startPosition += new Vector2(4, 4);
+            gameObject.layer = 3;
         }
         else if(player == -1)
         {
             psp.flipX = false;
             psp.flipY = false;
+            gameObject.layer = 0;
         }
     }
 

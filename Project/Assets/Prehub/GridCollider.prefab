@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1046819085628082018}
   - component: {fileID: 1046819085628082019}
   - component: {fileID: 5307371907214859565}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GridCollider
   m_TagString: Grid
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9013401367381170134}
   - component: {fileID: 4532373066206703314}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: "\u30B9\u30C6\u30FC\u30B8\u9078\u629E\u500B\u5225\u80CC\u666F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

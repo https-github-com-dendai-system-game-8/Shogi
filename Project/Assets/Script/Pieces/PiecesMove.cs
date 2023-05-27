@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
 {
     [SerializeField] GameObject gridCollider;//マスの当たり判定
+    [SerializeField] private Text[] playerLog = new Text[2];//プレイヤーごとのログ
     public bool isMoveStage = false;//駒を選択しているかどうか
-    public bool isPawnPlay = false;
+    public bool isPawnPlay = false;//持ち駒を選択しているかどうか
     public bool isCanTouch = true;//触れるかどうか
+    public int turn = -1;//どちらのターンか
     public static float gridSize = 1f;//マスのサイズ
-    private int[] pawnQuentity = {0,0};
+    private int[] pawnQuentity = {0,0};//取った駒の数
     private GameObject[] pieces;//駒
     private PieceStatus[] pieceStatus;//駒のステータス
     private Collider[] piecesCollider;//駒の判定
     private GameObject[] grid;//マス
     private GridStatus[] gridStatus;//マスのステータス
     private Transform[] gridTransform; //マスの位置
-    private List<int> pawn = new List<int>();
+    private List<int> pawn = new List<int>();//取った駒の番号
     private int tmp = 0;//選択した駒の番号
     [SerializeField]private Select sel;
 
@@ -91,6 +94,7 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
                             sel.OnClick();
                             isCanTouch = false;
                         }
+                        turn *= -1;
                         break;
                     }
                     else if (gridStatus[i].isSelect && !MoveLimit(i))
@@ -109,7 +113,7 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
                     }
                 }
             }
-            else if (isMoveStage && isPawnPlay)
+            else if (isMoveStage && isPawnPlay)//持ち駒を置く
             {
                 for(int i = 0;i < gridStatus.Length; i++)
                 {
@@ -243,21 +247,25 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
         {
             pawn.Add(getPawn);
             int num = 1;
-            if (pieceStatus[getPawn].player == 1)
-                pieceStatus[getPawn].player = -1;
-            else if (pieceStatus[getPawn].player == -1)
-                pieceStatus[getPawn].player = 1;
+            pieceStatus[getPawn].player *= -1;
 
             if (pieceStatus[getPawn].player == -1)
                 num = 0;
             pieceStatus[getPawn].transform.localPosition = new Vector2((pawnQuentity[num] % 9 - 4) * pieceStatus[getPawn].player, (pawnQuentity[num] / 9 + 5) * pieceStatus[getPawn].player);
             if(pieceStatus[getPawn].type >= 21)//なっている駒を取った場合戻す
             {
-                (pieceStatus[getPawn].type, pieceStatus[getPawn].promotionType) 
-                    = (pieceStatus[getPawn].promotionType, pieceStatus[getPawn].type);
+                SpriteRenderer pieceSprite = pieces[getPawn].GetComponent<SpriteRenderer>();
+                (pieceStatus[getPawn].type, pieceStatus[getPawn].promotionType, pieceSprite.sprite, pieceStatus[getPawn].promotionSprite)
+                    = (pieceStatus[getPawn].promotionType, pieceStatus[getPawn].type, pieceStatus[getPawn].promotionSprite, pieceSprite.sprite);
+                
             }
             pieceStatus[getPawn].CheckMove();
             pawnQuentity[num]++;
+            if (pieceStatus[getPawn].type == 16)
+            {
+                GameEndEffect(pieceStatus[getPawn].player);
+            }
+                
         }
         return isCanMove;//移動可能かどうかを返す
     }
@@ -297,5 +305,25 @@ public class PiecesMove: MonoBehaviour//駒の動きを制御するスクリプト
         }
         pieces[tmp].transform.localPosition = gridStatus[number].myPosition / gridSize - new Vector2(4,4);
         pieceStatus[tmp].CheckMove();
+        turn *= -1;
+    }
+
+    private void GameEndEffect(int winner)
+    {
+        int loser = 0;
+        if (winner == -1)
+        {
+            loser = 1;
+            winner = 0;
+        }
+        else if (winner == 1)
+        {
+            loser = 0;
+        }
+        else
+            return;
+        isCanTouch = false;
+        playerLog[winner].text = "YouWin!";
+        playerLog[loser].text = "YouLose...";
     }
 }
