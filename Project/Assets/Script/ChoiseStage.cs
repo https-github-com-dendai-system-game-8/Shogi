@@ -7,16 +7,10 @@ public class ChoiseStage : MonoBehaviour
 {
 
     public string sceneName;//à⁄ìÆÇµÇΩÇ¢ÉVÅ[ÉìÇÃñºëO
-    public bool scale;
 
 
     public void OnClick()
     {
-        
-        if (!scale)
-        {
-            Time.timeScale = 1f;
-        }
         if (sceneName == "End")
         {
             Application.Quit();
@@ -24,7 +18,6 @@ public class ChoiseStage : MonoBehaviour
         else
         {
             SceneManager.LoadScene(sceneName);
-                
         }
         
         
