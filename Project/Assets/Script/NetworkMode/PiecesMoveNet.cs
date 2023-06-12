@@ -351,7 +351,7 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        Vector3 position = new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f));
+        Vector3 position = Vector3.zero;
         if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
             PhotonNetwork.Instantiate("Avatar", position, Quaternion.identity);
         else
