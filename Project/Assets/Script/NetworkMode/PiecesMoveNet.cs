@@ -17,19 +17,20 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
     public int turn = -1;//どちらのターンか
     public static float gridSize = 1f;//マスのサイズ
     private int[] pawnQuentity = { 0, 0 };//取った駒の数
-    private GameObject[] pieces;//駒
-    private PieceStatusNet[] pieceStatus;//駒のステータス
+    public GameObject[] pieces;//駒
+    public PieceStatusNet[] pieceStatus;//駒のステータス
+    private PieceStatusNet tmpPieceStatus;
     private Collider[] piecesCollider;//駒の判定
     private GameObject[] grid;//マス
+    public PlayerManager[] playerManager;//自分と相手のデータ
     [HideInInspector] public GridStatusNet[] gridStatus;//マスのステータス
     private List<int> pawn = new List<int>();//取った駒の番号
     private int tmp = 0;//選択した駒の番号
-    [SerializeField] private Select sel;
+    [SerializeField] private Select sel;//選択肢を出す
 
     // Start is called before the first frame update
     void Start()
     {
-        PhotonNetwork.ConnectUsingSettings();
         grid = GameObject.FindGameObjectsWithTag("Grid");
         int x = 0, y = 0;
         for (int k = 0; k < grid.Length; k++)
@@ -61,6 +62,7 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
             gridStatus[i] = grid[i].GetComponent<GridStatusNet>();
             gridStatus[i].myPosition = new Vector3(grid[i].transform.localPosition.x / gridSize + 4, grid[i].transform.localPosition.y / gridSize + 4);
         }
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     // Update is called once per frame
@@ -94,7 +96,17 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
                             sel.OnClick();
                             isCanTouch = false;
                         }
-                        //turn *= -1;
+                        if (playerManager == null)//プレイヤーデータがない場合手に入れる
+                        {
+                            PlayerManager[] tmpPm;
+                            tmpPm = FindObjectsOfType<PlayerManager>();
+                            playerManager = tmpPm;
+                            break;
+                                
+                            
+                        }
+
+                        turn *= -1;
                         break;
                     }
                     else if (gridStatus[i].isSelect && !MoveLimit(i))
@@ -134,11 +146,12 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
                     }
                 }
             }
-            else
+            else//何もしていない状態
             {
                 for (int i = 0; i < pieceStatus.Length; i++)
                 {
                     if (pieceStatus[i].CheckSelected() && pieceStatus[i].piecePosition.y >= 0 && pieceStatus[i].piecePosition.y <= 8)
+                    //場の駒を選んだ場合
                     {
 
                         isMoveStage = true;//他の駒を選択できなくする
@@ -150,9 +163,10 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
                             col.enabled = false;
                         }
                         Debug.Log("移動モードに移行");
+                        tmpPieceStatus = pieceStatus[tmp];
                         break;
                     }
-                    else if (pieceStatus[i].CheckSelected())
+                    else if (pieceStatus[i].CheckSelected())//持ち駒を選んだ場合
                     {
                         tmp = i;
                         isMoveStage = true;
@@ -164,6 +178,7 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
                             col.enabled = false;
                         }
                         Debug.Log("移動モードに移行");
+                        tmpPieceStatus = pieceStatus[tmp];
                         break;
                     }
                 }
@@ -181,9 +196,8 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
         int getPawn = -1;
         Vector3 deltaPosition;//ココと駒の位置が合えば移動可能
         PieceStatusNet selectedPiece = pieceStatus[tmp];//今選ばれている駒
-        GridStatusNet tmpgrid = gridStatus[gridNumber];//行き先のます
+        GridStatusNet tmpgrid = gridStatus[gridNumber];//行き先のマス
         List<Vector3> limit = selectedPiece.distination;//移動可能な移動先
-        //Debug.Log((tmpgrid.myPosition.x - selectedPiece.piecePosition.x) / Mathf.Abs(tmpgrid.myPosition.x - selectedPiece.piecePosition.x));
         for (int i = 0; i < pieceStatus.Length; i++)//ココからマスに駒が乗っているかどうかを確認
         {
             if (tmpgrid.myPosition == pieceStatus[i].piecePosition && pieceStatus[i].player == pieceStatus[tmp].player)//乗っているなら移動不可にする
@@ -196,7 +210,6 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
             }
             if (selectedPiece.type == 11 || selectedPiece.type == 12 || selectedPiece.type == 20 || selectedPiece.type == 23)
             {
-                //bool bitweenX = false, bitweenY = false;
                 if (tmpgrid.myPosition.x - selectedPiece.piecePosition.x != 0 && tmpgrid.myPosition.y - selectedPiece.piecePosition.y == 0)
                 {
                     Debug.Log("x方向の移動を確認");
@@ -307,7 +320,7 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
         pieces[tmp].transform.localPosition = gridStatus[number].myPosition / gridSize - new Vector3(4, 4);
         pieceStatus[tmp].CheckMove();
         pawn.Remove(tmp);
-        //turn *= -1;
+        turn *= -1;
     }
 
     private void GameEndEffect()
@@ -339,6 +352,9 @@ public class PiecesMoveNet : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Vector3 position = new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f));
-        PhotonNetwork.Instantiate("Avatar", position, Quaternion.identity);
+        if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
+            PhotonNetwork.Instantiate("Avatar", position, Quaternion.identity);
+        else
+            PhotonNetwork.Instantiate("Avatar2", position, Quaternion.identity);
     }
 }

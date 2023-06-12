@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4781870694563725774}
   - component: {fileID: -2643192833311126481}
-  - component: {fileID: 7729327701500412288}
   - component: {fileID: 2580947625725049475}
+  - component: {fileID: 569751836749392145}
   m_Layer: 0
-  m_Name: Avatar
+  m_Name: Avatar2
   m_TagString: Avator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,25 +52,10 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 7729327701500412288}
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &7729327701500412288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595768843145731143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a13fc4c8d502614fa7ca06d945f2e87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myNumber: 0
-  pieceStatus: []
 --- !u!212 &2580947625725049475
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -123,3 +108,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &569751836749392145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595768843145731143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f232522b7960164992c35f4417d69e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

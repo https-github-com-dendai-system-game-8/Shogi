@@ -20,6 +20,7 @@ public class PieceStatusNet : MonoBehaviour, IPointerClickHandler
     public bool canPromotion = true;//成れるかどうか
     public int promotionType;//成った後のタイプ
     public Sprite promotionSprite;//成った後の見た目
+    public int pieceID;
 
     public bool isSelect = false;//この駒が選ばれているかどうか
     public Vector3 piecePosition;//現在の駒の位置
@@ -34,6 +35,7 @@ public class PieceStatusNet : MonoBehaviour, IPointerClickHandler
         piecePosition = startPosition;
         transform.localPosition = (piecePosition - new Vector3(4, 4)) * PiecesMoveNet.gridSize;
         pm = GameObject.FindGameObjectWithTag("ShogiStage").GetComponent<PiecesMoveNet>();
+        pieceID = type * holder;
     }
 
     void Update()
@@ -274,9 +276,9 @@ public class PieceStatusNet : MonoBehaviour, IPointerClickHandler
                 canPromotion = false;
                 break;
         }
-        distination.Remove(new Vector3(0, 0));
-        SpriteRenderer psp = GetComponent<SpriteRenderer>();
-        if (player == 1)
+        distination.Remove(new Vector3(0, 0));//
+        SpriteRenderer psp = GetComponent<SpriteRenderer>();//駒の見た目向きを変える用
+        if (player == 1)//プレイヤーの向きに駒の向きを合わせる
         {
             for (int i = 0; i < distination.Count; i++)
             {
