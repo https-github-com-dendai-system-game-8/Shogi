@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2580947625725049475}
   m_Layer: 0
   m_Name: Avatar
-  m_TagString: Untagged
+  m_TagString: Avator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +52,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 7729327701500412288}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -69,9 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myNumber: 0
-  pieces: []
   pieceStatus: []
-  moveNet: {fileID: 0}
 --- !u!212 &2580947625725049475
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -20,11 +20,13 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
     public bool canPromotion = true;//成れるかどうか
     public int promotionType;//成った後のタイプ
     public Sprite promotionSprite;//成った後の見た目
+    public int pieceID;
 
     public bool isSelect = false;//この駒が選ばれているかどうか
     public Vector3 piecePosition;//現在の駒の位置
 
-    private PiecesMove pm;
+    private bool safe = false;//選択できる状態かどうか
+    private int grLen;//マスの数
 
     // Start is called before the first frame update
 
@@ -33,18 +35,19 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
         CheckMove();
         piecePosition = startPosition;
         transform.localPosition = (piecePosition - new Vector3(4, 4)) * PiecesMove.gridSize;
-        pm = GameObject.FindGameObjectWithTag("ShogiStage").GetComponent<PiecesMove>();
+        pieceID = holder * type;
+        grLen = GameObject.FindGameObjectsWithTag("Grid").Length;
     }
 
     void Update()
     {
         piecePosition =new Vector3(Mathf.Round(transform.localPosition.x),Mathf.Round(transform.localPosition.y)) / PiecesMove.gridSize + new Vector3(4, 4);
-        for(int i = 0;i < pm.gridStatus.Length;i++)
-        transform.localPosition = new Vector3(transform.localPosition.x,transform.localPosition.y,transform.localPosition.z);
+        for(int i = 0;i < grLen;i++)
+            transform.localPosition = new Vector3(transform.localPosition.x,transform.localPosition.y,transform.localPosition.z);
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!pm.isMoveStage && pm.isCanTouch && player == pm.turn)
+        if (safe)
         {
             isSelect = true;
             Debug.Log("選ばれた");
@@ -56,9 +59,14 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
         return isSelect;
     }
 
+    public void IsSafe(bool isMoveStage,bool isCanTouch, int turn)
+    {
+        safe = !isMoveStage && isCanTouch && turn == player;
+    }
+
     public void CheckMove()
     {
-        switch (type)
+        switch (type)//タイプごとに設定を変える
         {
             case 1:
                 startPosition = new Vector3(8, 2);
@@ -80,7 +88,6 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 canPromotion = true;
                 promotionType = 21;
                 distination.Add(new Vector3(0, 1));
-                
                 break;
             case 4:
                 startPosition = new Vector3(5, 2);
@@ -186,6 +193,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 break;
             case 16:
                 startPosition = new Vector3(4, 0);
+                promotionType = 30;
                 distination.Clear();
                 distination.Add(new Vector3(-1, 1));
                 distination.Add(new Vector3(0, 1));
