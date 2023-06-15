@@ -108,7 +108,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1523415369644149772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d1e9ece11975db49ac79b28b36ace9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f377df66bb389140b90b150d14e06b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startPosition: {x: 0, y: 0, z: 0}
@@ -119,5 +119,6 @@ MonoBehaviour:
   canPromotion: 1
   promotionType: 21
   promotionSprite: {fileID: 21300000, guid: b5928519760ae5449ad7a14afce5034b, type: 3}
+  pieceID: 0
   isSelect: 0
   piecePosition: {x: 0, y: 0, z: 0}

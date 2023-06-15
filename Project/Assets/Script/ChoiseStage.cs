@@ -8,7 +8,6 @@ public class ChoiseStage : MonoBehaviour
 
     public string sceneName;//ˆÚ“®‚µ‚½‚¢ƒV[ƒ“‚Ì–¼‘O
 
-
     public void OnClick()
     {
         if (sceneName == "End")

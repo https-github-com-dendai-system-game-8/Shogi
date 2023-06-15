@@ -2589,16 +2589,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe28b4870662b1946888cc270cdb6f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridCollider: {fileID: 1046819085628082029, guid: 4a8177305dd4774438909dc8ae7e71ca, type: 3}
-  playerLog: {fileID: 2012213844}
+  playerLog:
+  - {fileID: 0}
   isMoveStage: 0
   isPawnPlay: 0
   isCanTouch: 0
   turn: -1
+  pawnQuentity: 0000000000000000
   pieces: []
   pieceStatus: []
+  piecesCollider: []
+  grid: []
   gridStatus: []
+  pawn: 
+  tmp: 0
   sel: {fileID: 732114880}
+  beforePosition: []
+  playerLogNet: {fileID: 1394742354}
+  pieceStatusNet: []
+  playerManager: []
+  gridStatusNet: []
 --- !u!4 &392824728 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1046819085628082018, guid: 87247374986cbc94b9c594339bea637c, type: 3}
@@ -8008,9 +8018,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1776705368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13e1d684ca0896247abb45e05ff576e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 431d418bd820d49449d4cb0f0e8be5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: End
 --- !u!114 &1776705371
 MonoBehaviour:
   m_ObjectHideFlags: 0
