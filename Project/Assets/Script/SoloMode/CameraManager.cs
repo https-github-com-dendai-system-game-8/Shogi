@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -30,19 +31,19 @@ public class CameraManager : MonoBehaviour
         if(tag == "MainCamera" && otherCamera.activeInHierarchy)
         {
             transform.RotateAround(m_target.position, axis, m_rotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
-            transform.Translate(Input.GetAxis("Vertical") * m_target.position * speed * Time.deltaTime);
+            transform.Translate(Input.GetAxis("Vertical") * Vector3.forword * speed * Time.deltaTime);
             //transform.LookAt(m_target);
         }
         else if(tag == "SubCamera" && otherCamera.activeInHierarchy)
         {
             transform.RotateAround(m_target.position, axis, m_rotateSpeed * -Input.GetAxis("Horizontal2") * Time.deltaTime);
-            transform.Translate(Input.GetAxis("Vertical2") * m_target.position * speed * Time.deltaTime);
+            transform.Translate(Input.GetAxis("Vertical2") * Vector3.forword * speed * Time.deltaTime);
             //transform.LookAt(m_target);
         }
         else
         {
             transform.RotateAround(m_target.position, axis, m_rotateSpeed * -Input.GetAxis("Horizontal2") * Time.deltaTime);
-            transform.Translate(Input.GetAxis("Vertical2") * m_target.position * speed * Time.deltaTime);
+            transform.Translate(Input.GetAxis("Vertical2") * Vector3.forward * speed * Time.deltaTime);
             transform.RotateAround(m_target.position, axis, m_rotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
             transform.Translate(Input.GetAxis("Vertical") * Vector3.forward * speed * Time.deltaTime);
         }
