@@ -9,7 +9,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private int speed;//‘OŒã‚·‚é‘¬‚³
     public float m_rotateSpeed = 10;
     private GameObject otherCamera;
-    [SerializeField] private Vector3 axis = new Vector3(0,0,1);
+    [SerializeField] private Vector3 axis = new Vector3(1,0,0);
 
     private void Start()
     {
