@@ -2536,8 +2536,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: {fileID: 1986257874}
-  speed: 10
+  speed: 2
   m_rotateSpeed: 30
+  axis: {x: 0, y: 0, z: 1}
 --- !u!1 &549763044
 GameObject:
   m_ObjectHideFlags: 0
@@ -4956,8 +4957,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: {fileID: 1986257874}
-  speed: 10
+  speed: 2
   m_rotateSpeed: 30
+  axis: {x: 0, y: 0, z: 1}
 --- !u!1001 &975338276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8621,8 +8623,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e1d684ca0896247abb45e05ff576e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: End
-  scale: 0
 --- !u!4 &1890787324 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1046819085628082018, guid: 4a8177305dd4774438909dc8ae7e71ca, type: 3}
@@ -9151,7 +9151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394acf06f1f5afa448030721c1de17c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridCollider: {fileID: 1046819085628082029, guid: 4a8177305dd4774438909dc8ae7e71ca, type: 3}
   playerLog:
   - {fileID: 395832528}
   - {fileID: 1584552100}
@@ -9159,8 +9158,18 @@ MonoBehaviour:
   isPawnPlay: 0
   isCanTouch: 1
   turn: -1
+  pawnQuentity: 0000000000000000
+  pieces: []
+  pieceStatus: []
+  piecesCollider: []
+  grid: []
   gridStatus: []
+  pawn: 
+  tmp: 0
   sel: {fileID: 1071436393}
+  beforePosition: []
+  isCanMove: 0
+  isPromotion: 0
 --- !u!1 &1969529765
 GameObject:
   m_ObjectHideFlags: 0
