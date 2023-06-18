@@ -10,7 +10,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private int speed;//‘OŒã‚·‚é‘¬‚³
     public float m_rotateSpeed = 10;
     private GameObject otherCamera;
-    [SerializeField] private Vector3 axis = new Vector3(0,0,1);
+    [SerializeField] private Vector3 axis = new Vector3(1,0,0);
 
     private void Start()
     {
@@ -28,13 +28,13 @@ public class CameraManager : MonoBehaviour
     }
     private void Update()
     {
-        if(tag == "MainCamera" && otherCamera.activeInHierarchy)
+        if (tag == "MainCamera" && otherCamera.activeInHierarchy)
         {
             transform.RotateAround(m_target.position, axis, m_rotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
             transform.Translate(Input.GetAxis("Vertical") * Vector3.forward * speed * Time.deltaTime);
             //transform.LookAt(m_target);
         }
-        else if(tag == "SubCamera" && otherCamera.activeInHierarchy)
+        else if (tag == "SubCamera" && otherCamera.activeInHierarchy)
         {
             transform.RotateAround(m_target.position, axis, m_rotateSpeed * -Input.GetAxis("Horizontal2") * Time.deltaTime);
             transform.Translate(Input.GetAxis("Vertical2") * Vector3.forward * speed * Time.deltaTime);
