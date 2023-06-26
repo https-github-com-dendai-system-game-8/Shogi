@@ -109,7 +109,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                         pieceStatus[j].promotionType = (int)stream.ReceiveNext();
                         pieceStatus[j].player = (int)stream.ReceiveNext();
                         pieceStatus[j].transform.localPosition = (Vector3)stream.ReceiveNext();
-                        pieceStatus[j].CheckMove();
+                        pieceStatus[j].PieceInitialize();
                         if (pieceStatus[j].type != tmptype)
                         {
                             SpriteRenderer pieceSprite = pieceStatus[j].gameObject.GetComponent<SpriteRenderer>();
