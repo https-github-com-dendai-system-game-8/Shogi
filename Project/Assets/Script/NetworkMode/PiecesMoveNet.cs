@@ -6,56 +6,17 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UIElements;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class PiecesMoveNet : PiecesMove
 {
     [SerializeField] private Text playerLogNet;//プレイヤーごとのログ
-
-    //public PieceStatusNet[] pieceStatus;//駒のステータス
-
     public PlayerManager[] playerManager;//自分と相手のデータ
-   //[HideInInspector] public GridStatusNet[] gridStatus;//マスのステータス
 
     // Start is called before the first frame update
     void Start()
     {
-        grid = GameObject.FindGameObjectsWithTag("Grid");
-        int x = 0, y = 0;
-        for (int k = 0; k < grid.Length; k++)
-        {
-
-            grid[k].transform.localPosition = new Vector3(x * gridSize - 4, y * gridSize - 4, grid[k].transform.localPosition.z);
-
-            if (x < 8)
-                x++;
-            else if (x == 8)
-            {
-                y++;
-                x = 0;
-            }
-
-        }
-
-        pieces = GameObject.FindGameObjectsWithTag("Pieces");
-        pieceStatus = new PieceStatus[pieces.Length];
-        piecesCollider = new Collider[pieces.Length];
-        beforePosition = new Vector3[pieces.Length];
-        for (int i = 0; i < pieces.Length; i++)
-        {
-            pieceStatus[i] = pieces[i].GetComponent<PieceStatus>();
-            piecesCollider[i] = pieces[i].GetComponent<Collider>();
-        }
-        gridStatus = new GridStatus[grid.Length];
-        for (int i = 0; i < grid.Length; i++)
-        {
-            gridStatus[i] = grid[i].GetComponent<GridStatus>();
-            gridStatus[i].myPosition = new Vector3(grid[i].transform.localPosition.x / gridSize + 4, grid[i].transform.localPosition.y / gridSize + 4);
-        }
-        for (int i = 0; i < pieceStatus.Length; i++)
-        {
-            pieceStatus[i].CheckMove();
-            beforePosition[i] = pieceStatus[i].startPosition;
-        }
+        Initialize();
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -172,7 +133,7 @@ public class PiecesMoveNet : PiecesMove
         for (int i = 0; i < pieceStatus.Length; i++)
         {
             pieceStatus[i].piecePosition = new Vector2(Mathf.Round(pieces[i].transform.localPosition.x), Mathf.Round(pieces[i].transform.localPosition.y)) / gridSize + new Vector2(4, 4);
-            if (beforePosition[i] != pieceStatus[i].piecePosition && al && !(pieceStatus[i].piecePosition.y >= 9 || pieceStatus[i].piecePosition.y <= 0))//ターンを切り替える
+            if (beforePosition[i] != pieceStatus[i].piecePosition && al)//ターンを切り替える
             {
                 Debug.Log("change");
                 turn *= -1;
@@ -215,7 +176,7 @@ public class PiecesMoveNet : PiecesMove
         if (a)
         {
             (pieceStatus[tmp].type, pieceStatus[tmp].promotionType) = (pieceStatus[tmp].promotionType, pieceStatus[tmp].type);
-            pieceStatus[tmp].CheckMove();
+            pieceStatus[tmp].PieceInitialize();
             SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
             (pieceSprite.sprite, pieceStatus[tmp].promotionSprite) = (pieceStatus[tmp].promotionSprite, pieceSprite.sprite);
         }
@@ -235,7 +196,7 @@ public class PiecesMoveNet : PiecesMove
                 (pieceStatus[i].type, pieceStatus[i].promotionType) = (pieceStatus[i].promotionType, pieceStatus[i].type);
             }
             pieceStatus[i].player = pieceStatus[i].holder;//駒を持ち主に戻す
-            pieceStatus[i].CheckMove();//駒の設定を戻す
+            pieceStatus[i].PieceInitialize();//駒の設定を戻す
             pieces[i].transform.localPosition = (pieceStatus[i].startPosition - new Vector3(4, 4)) * gridSize;//駒の位置を戻す
             pieceStatus[i].piecePosition = (pieces[i].transform.localPosition) / gridSize + new Vector3(4, 4);//駒の位置情報を戻す
         }

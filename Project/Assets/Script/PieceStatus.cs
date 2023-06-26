@@ -8,10 +8,10 @@ using System.IO;
 using UnityEditor;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
+using System;
 
 public class PieceStatus : MonoBehaviour,IPointerClickHandler
 {
-
     public Vector3 startPosition;//駒の初期位置
     public List<Vector3> distination;//駒の移動可能先
     public int type;//駒の種類
@@ -20,7 +20,9 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
     public bool canPromotion = true;//成れるかどうか
     public int promotionType;//成った後のタイプ
     public Sprite promotionSprite;//成った後の見た目
-    public int pieceID;
+    public int pieceID;//駒を識別する番号
+    public float piecePoint = 0;//駒に割り振られたポイント
+    public int[] deckNum = {0,1};
 
     public bool isSelect = false;//この駒が選ばれているかどうか
     public Vector3 piecePosition;//現在の駒の位置
@@ -32,7 +34,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
 
     private void Start()
     {
-        CheckMove();
+        PieceInitialize();
         piecePosition = startPosition;
         transform.localPosition = (piecePosition - new Vector3(4, 4)) * PiecesMove.gridSize;
         pieceID = holder * type;
@@ -64,7 +66,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
         safe = !isMoveStage && isCanTouch && turn == player;
     }
 
-    public void CheckMove()
+    public void PieceInitialize()
     {
         switch (type)//タイプごとに設定を変える
         {
@@ -296,12 +298,16 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
             startPosition *= -1;
             startPosition += new Vector3(4, 4);
             gameObject.layer = 3;
+            if(type < 21)
+                piecePoint = Convert.ToSingle(File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + deckNum[1] + ".txt")[type]);
         }
         else if(player == -1)
         {
             psp.flipX = false;
             psp.flipY = false;
             gameObject.layer = 0;
+            if (type < 21)
+                piecePoint = Convert.ToSingle(File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + deckNum[0] + ".txt")[type]);
         }
     }
 
