@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 public class EditManager : MonoBehaviour
 {
     private string[] statusStr;//各コマのポイント(文字列)
-    private int[] status;//各コマのポイント(数字)
+    public int[] status = new int[20];//各コマのポイント(数字)
     private string path;//デッキを保存するファイル
     public int deckID = 0;//編集するデッキの番号
     public int deckMax = 200;
@@ -25,6 +25,8 @@ public class EditManager : MonoBehaviour
     void Start()
     {
         canvasActive = FindObjectOfType<CanvasActive>().GetComponent<CanvasActive>();
+        for (int i = 0; i < status.Length; i++)
+            status[i] = 0;
     }
 
     // Update is called once per frame
@@ -71,9 +73,7 @@ public class EditManager : MonoBehaviour
         for(int i = 0;i < status.Length - 1; i++)
             sum += status[i];
         status[20] = deckMax - sum;
-        text.text = "この駒のポイント:" + status[pieceID] + 
-            "\n残りポイント:" + status[20] + 
-            "\nこの駒の上限" + pieceMax;
+        text.text = "\n残りポイント:" + status[20];
 
         if (Input.GetKeyDown(KeyCode.M))
         {
