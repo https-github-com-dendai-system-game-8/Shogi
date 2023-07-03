@@ -7,12 +7,18 @@ using System.IO;
 using System;
 using Unity.VisualScripting;
 
+public class DeckData
+{
+    public string deckName = "";
+    public int deckID = 0;
+}
 public class EditManager : MonoBehaviour
 {
+
     private string[] statusStr;//各コマのポイント(文字列)
-    public int[] status = new int[20];//各コマのポイント(数字)
+    public int[] status = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};//各コマのポイント(数字)
     private string path;//デッキを保存するファイル
-    public int deckID = 0;//編集するデッキの番号
+    public DeckData deckData;//編集するデッキのデータ
     public int deckMax = 200;
     public int pieceID = 0;//編集する駒の番号
     public int pieceMax = 0;//編集する駒の最大値
@@ -25,6 +31,7 @@ public class EditManager : MonoBehaviour
     void Start()
     {
         canvasActive = FindObjectOfType<CanvasActive>().GetComponent<CanvasActive>();
+        deckData = new DeckData();
         for (int i = 0; i < status.Length; i++)
             status[i] = 0;
     }
@@ -91,7 +98,7 @@ public class EditManager : MonoBehaviour
 
     public void GetDeckID(int id)
     {
-        deckID = id;
+        deckData.deckID = id;
     }
 
     private void Save()
@@ -120,10 +127,13 @@ public class EditManager : MonoBehaviour
 
     private void NewStart()
     {
-        path = Application.dataPath + "/TextFile/pieceStatus" + deckID + ".txt";
+        path = Application.dataPath + "/Resources/pieceStatus" + deckData.deckID + ".txt";
 
         if (File.Exists(path))
+        {
             statusStr = File.ReadAllLines(path);
+            Debug.Log(statusStr[0]);
+        }
         else
         {
             new StreamWriter(path);
@@ -133,7 +143,6 @@ public class EditManager : MonoBehaviour
                 statusStr[i] = "0";
             }
         }
-        status = new int[statusStr.Length];
         for (int i = 0; i < status.Length; i++)
             status[i] = Convert.ToInt32(statusStr[i]);
         text = FindObjectOfType<Text>();

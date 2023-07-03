@@ -18,7 +18,6 @@ public class EditStatus : MonoBehaviour, IPointerClickHandler
         manager = FindObjectOfType<EditManager>();
         Initialize();
         text = transform.Find("point").gameObject.GetComponent<Text>();
-        max = 0;
     }
 
     // Update is called once per frame
