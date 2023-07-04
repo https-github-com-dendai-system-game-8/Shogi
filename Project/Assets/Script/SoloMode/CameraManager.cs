@@ -11,9 +11,12 @@ public class CameraManager : MonoBehaviour
     public float m_rotateSpeed = 10;
     private GameObject otherCamera;
     [SerializeField] private Vector3 axis = new Vector3(1,0,0);
-    [SerializeField] private int max = 10, min = 200;
+    [SerializeField] private Vector3 maxOut, maxIn;
+
     private void Start()
     {
+        maxIn = new Vector3(1,1,1);
+        maxOut = transform.position;
         if (tag == "MainCamera")
             otherCamera = GameObject.FindGameObjectWithTag("SubCamera");
         else
@@ -29,12 +32,12 @@ public class CameraManager : MonoBehaviour
     private void Update()
     {
         Vector3 tr = transform.localPosition;
-        if (tr.x * tr.x + tr.y * tr.y + tr.z * tr.z < min)
+        if (tr.x * tr.x + tr.y * tr.y + tr.z * tr.z < 10)
         {
             transform.Translate(-Vector3.forward);
             return;
         }
-        else if (tr.x * tr.x + tr.y * tr.y + tr.z * tr.z > max)
+        else if (tr.x * tr.x + tr.y * tr.y + tr.z * tr.z > 200)
         {
             transform.Translate(Vector3.forward);
             return;
