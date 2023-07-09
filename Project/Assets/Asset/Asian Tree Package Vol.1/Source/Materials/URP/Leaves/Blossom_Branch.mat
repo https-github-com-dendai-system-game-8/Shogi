@@ -116,6 +116,8 @@ Material:
     - _EnableFogOnTransparent: 1
     - _Normal_Strength: 0.6
     - _OpaqueCullMode: 2
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0

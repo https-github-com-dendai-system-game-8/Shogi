@@ -41151,6 +41151,8 @@ MonoBehaviour:
   speed: 30
   m_rotateSpeed: 30
   axis: {x: 0, y: 1, z: 0}
+  maxOut: {x: 0, y: 0, z: 0}
+  maxIn: {x: 0, y: 0, z: 0}
 --- !u!114 &1421438067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46315,6 +46317,8 @@ MonoBehaviour:
   speed: 30
   m_rotateSpeed: 30
   axis: {x: 0, y: 1, z: 0}
+  maxOut: {x: 0, y: 0, z: 0}
+  maxIn: {x: 0, y: 0, z: 0}
 --- !u!114 &1610236461
 MonoBehaviour:
   m_ObjectHideFlags: 0
