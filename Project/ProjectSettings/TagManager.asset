@@ -11,6 +11,8 @@ TagManager:
   - AfterChoice
   - SubCamera
   - Avator
+  - PointData
+  - DeckDataManager
   layers:
   - Default
   - TransparentFX

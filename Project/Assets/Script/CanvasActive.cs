@@ -8,7 +8,7 @@ public class CanvasActive : MonoBehaviour//メニューを開いたり閉じたりする
     //private AudioSource se;//SE管理用のAudioSource
 
     public bool isOpen = false;//メニューを開いているかどうか
-    public GameObject[] secondStage, firstStage;//左:最初に消すやつ,右:後から消す奴
+    public GameObject[] secondStage, firstStage;//左:最初に消すやつ,右:後から消すやつ
     //public AudioClip[] seClip;//メニュー閉じる、開く音
     // Start is called before the first frame update
     void Start()
@@ -31,7 +31,7 @@ public class CanvasActive : MonoBehaviour//メニューを開いたり閉じたりする
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ReturnStage();
+            ReturnStage(false);
         }
         if (Input.GetKeyDown(KeyCode.Tab) && FindObjectOfType<Selectable>() != null)
         {
@@ -43,17 +43,17 @@ public class CanvasActive : MonoBehaviour//メニューを開いたり閉じたりする
             SceneManager.LoadScene("TitleScene");
         }
     }
-    public void ReturnStage()
+    public void ReturnStage(bool set)
     {
         //se.clip = seClip[0];
         //se.Play();
         foreach (var obj in secondStage)
         {
-            obj.SetActive(false);
+            obj.SetActive(set);
         }
         foreach (var obj in firstStage)
         {
-            obj.SetActive(true);
+            obj.SetActive(!set);
         }
         if (FindObjectOfType<Selectable>() != null)
         {
@@ -61,7 +61,7 @@ public class CanvasActive : MonoBehaviour//メニューを開いたり閉じたりする
         }
 
         Time.timeScale = 1f;
-        isOpen = false;
+        isOpen = set;
         
     }
 

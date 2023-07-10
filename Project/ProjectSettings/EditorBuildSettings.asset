@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2-2SoloScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/2-3DeckEditor.unity
+    guid: bf6dd9986b6058247984af01aec9efff
+  - enabled: 1
+    path: Assets/Scenes/stage1.unity
+    guid: e8c6e6a893978154ca5595dd301bfa83
   m_configObjects: {}

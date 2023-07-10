@@ -111,10 +111,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f377df66bb389140b90b150d14e06b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {x: 0, y: 0}
+  startPosition: {x: 0, y: 0, z: 0}
   distination: []
   type: 16
+  player: 0
+  holder: 0
   canPromotion: 1
+  promotionType: 30
   promotionSprite: {fileID: 0}
+  pieceID: 0
+  piecePoint: 0
+  deckNum: 0000000001000000
   isSelect: 0
-  piecePosition: {x: 0, y: 0}
+  piecePosition: {x: 0, y: 0, z: 0}
