@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class EditStatus : MonoBehaviour, IPointerClickHandler
 {
@@ -10,17 +11,19 @@ public class EditStatus : MonoBehaviour, IPointerClickHandler
     [SerializeField] private int type;//この駒の種類
     private int max;//この駒のポイントの最大値
     private EditManager manager;//マネージャー
+    private Text text;
     // Start is called before the first frame update
     void Start()
     {
         manager = FindObjectOfType<EditManager>();
         Initialize();
+        text = transform.Find("point").gameObject.GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        text.text = manager.status[myID] + "/" + max;
     }
     public void OnPointerClick (PointerEventData eventdata)
     {

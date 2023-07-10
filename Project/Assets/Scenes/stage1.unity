@@ -2409,7 +2409,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: -1922277863
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1001 &65088863
@@ -3813,7 +3813,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: -1922277863
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1001 &108552781
@@ -6311,6 +6311,7 @@ MonoBehaviour:
   playerLog:
   - {fileID: 429985694}
   - {fileID: 1885727801}
+  masterLog: {fileID: 315278257}
   isMoveStage: 0
   isPawnPlay: 0
   isCanTouch: 1
@@ -9781,7 +9782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13165,7 +13166,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429985692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13174,7 +13175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 520}
+  m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &429985694
@@ -41380,11 +41381,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1421438064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6bbc8aedb7eb4a4cbbba84b482044ab, type: 3}
+  m_Script: {fileID: 11500000, guid: faa7f3709e9abec41aabca5e2acfca52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: {fileID: 1065146222}
-  speed: 30
+  speed: 10
   m_rotateSpeed: 30
   axis: {x: 0, y: 1, z: 0}
   maxOut: {x: 0, y: 0, z: 0}
@@ -46570,11 +46571,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1610236458}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6bbc8aedb7eb4a4cbbba84b482044ab, type: 3}
+  m_Script: {fileID: 11500000, guid: faa7f3709e9abec41aabca5e2acfca52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: {fileID: 1065146222}
-  speed: 30
+  speed: 10
   m_rotateSpeed: 30
   axis: {x: 0, y: 1, z: 0}
   maxOut: {x: 0, y: 0, z: 0}
@@ -46925,7 +46926,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -520}
+  m_AnchoredPosition: {x: 0, y: -200}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1621594339
@@ -53802,7 +53803,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 520}
+  m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1885727801
@@ -54707,9 +54708,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1918135913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13e1d684ca0896247abb45e05ff576e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 431d418bd820d49449d4cb0f0e8be5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: 1StartScene
 --- !u!114 &1918135916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57971,7 +57973,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -520}
+  m_AnchoredPosition: {x: 0, y: -200}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2056398727

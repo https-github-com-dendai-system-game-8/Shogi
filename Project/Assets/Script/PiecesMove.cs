@@ -10,6 +10,7 @@ using Photon.Pun;
 public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
 {
     [SerializeField] private Text[] playerLog = new Text[2];//プレイヤーごとのログ
+    public Text masterLog;//全体のログ
     public bool isMoveStage = false;//駒を選択しているかどうか
     public bool isPawnPlay = false;//持ち駒を選択しているかどうか
     public bool isCanTouch = true;//触れるかどうか
@@ -54,7 +55,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         isMoveStage = false;//他の駒を選べない状態を解除
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
                         pieceSprite.color = Color.white;//駒の色を戻す
-                        Debug.Log("移動終わったよ");
+                        masterLog.text = "移動終了";
                         isPromotion = false;
                         foreach (var col in piecesCollider)//駒の判定を戻す
                         {
@@ -72,7 +73,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         isMoveStage = false;//他の駒を選択できない状態を解除
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
                         pieceSprite.color = Color.white;//駒の色を戻す
-                        Debug.Log("そこは移動できません\n移動モード解除");
+                        masterLog.text = "そこは移動できません";
                         foreach (var col in piecesCollider)//駒の判定を戻す
                         {
                             col.enabled = true;
@@ -144,17 +145,27 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
             pieceStatus[i].piecePosition = new Vector2(Mathf.Round(pieces[i].transform.localPosition.x), Mathf.Round(pieces[i].transform.localPosition.y)) / gridSize + new Vector2(4, 4);
             if (beforePosition[i] != pieceStatus[i].piecePosition && al)
             {
-                
                 Debug.Log("change");
                 turn *= -1;
                 al = false;
-                
             }
             beforePosition[i] = pieceStatus[i].piecePosition;
 
             PieceSafe(i);
         }
-        for(int i = 0;i < gridStatus.Length; i++)
+        int[] tmptype = { 0, 0 };
+        int playertmp = 0;
+        for (int i = 0; i < pieceStatus.Length; i++)//どちらかが王将を取っているならゲーム終了
+        {
+            if (pieceStatus[i].type == 16)
+            {
+                tmptype[playertmp] = i;
+                playertmp++;
+            }
+        }
+        if (pieceStatus[tmptype[0]].player == pieceStatus[tmptype[1]].player)
+            GameEndEffect(pieceStatus[tmptype[0]].player);
+        for (int i = 0;i < gridStatus.Length; i++)
         {
             GridSafe(i);
         }
@@ -168,14 +179,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
     {
         isCanMove = false;//動くかどうか
         StartCoroutine(TestCoroutine(gridNumber));
-        for(int i = 0;i < pieceStatus.Length; i++)
-        {
-            if (pieceStatus[i].type == 30)
-            {
-                GameEndEffect(-pieceStatus[i].holder);
-                break;
-            }
-        }
+        
         return isCanMove;//移動可能かどうかを返す
     }
     public IEnumerator TestCoroutine(int gridNumber)
@@ -283,17 +287,14 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
             }
             pieceStatus[getPawn].PieceInitialize();
             pawnQuentity[num]++;
-            if (pieceStatus[getPawn].type == 16)
+            if (pieceStatus[getPawn].type == 16)//取ったのが王将なら
             {
-                (pieceStatus[getPawn].type, pieceStatus[getPawn].promotionType) = (pieceStatus[getPawn].promotionType, pieceStatus[getPawn].promotionType);
-                isCanMove = false;
+                isCanMove = true;
             }
             else if (pieceStatus[getPawn].player != turn)
             {
                 isCanMove = false;
             }
-                
-
         }
 
     }
@@ -326,7 +327,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
         {
             if (gridStatus[number].myPosition == pieceStatus[i].piecePosition)
             {
-                Debug.Log("そこには置けません");
+                masterLog.text = "そこには置けません";
                 return;
             }
             else if (gridStatus[number].myPosition.x == pieceStatus[i].piecePosition.x
@@ -336,7 +337,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                 && pieceStatus[tmp].type >= 1 && pieceStatus[tmp].type <= 9)
 
             {
-                Debug.Log("二歩です");
+                masterLog.text = "二歩です";
                 return;
             }
         }

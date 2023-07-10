@@ -38,7 +38,7 @@ public class PiecesMoveNet : PiecesMove
                         isMoveStage = false;//他の駒を選べない状態を解除
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
                         pieceSprite.color = Color.white;//駒の色を戻す
-                        Debug.Log("移動終わったよ");
+                        masterLog.text = "移動終了";
                         isPromotion = false;
                         foreach (var col in piecesCollider)//駒の判定を戻す
                         {
@@ -64,7 +64,7 @@ public class PiecesMoveNet : PiecesMove
                         isMoveStage = false;//他の駒を選択できない状態を解除
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
                         pieceSprite.color = Color.white;//駒の色を戻す
-                        Debug.Log("そこは移動できません\n移動モード解除");
+                        masterLog.text = "そこは移動できません";
                         foreach (var col in piecesCollider)//駒の判定を戻す
                         {
                             col.enabled = true;
@@ -142,6 +142,18 @@ public class PiecesMoveNet : PiecesMove
             beforePosition[i] = pieceStatus[i].piecePosition;
             PieceSafe(i);
         }
+        int[] tmptype = { 0, 0 };
+        int playertmp = 0;
+        for (int i = 0; i < pieceStatus.Length; i++)//どちらかが王将を取っているならゲーム終了
+        {
+            if (pieceStatus[i].type == 16)
+            {
+                tmptype[playertmp] = i;
+                playertmp++;
+            }
+        }
+        if (pieceStatus[tmptype[0]].player == pieceStatus[tmptype[1]].player)
+            GameEndEffect();
         for (int i = 0; i < gridStatus.Length; i++)
         {
             GridSafe(i);

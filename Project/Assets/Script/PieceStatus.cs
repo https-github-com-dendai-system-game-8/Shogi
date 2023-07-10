@@ -283,6 +283,23 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 distination.Add(new Vector3(-1, 1));
                 canPromotion = false;
                 break;
+            case 30:
+                startPosition = new Vector3(4, 0);
+                promotionType = 30;
+                distination.Clear();
+                distination.Add(new Vector3(-1, 1));
+                distination.Add(new Vector3(0, 1));
+                distination.Add(new Vector3(-1, 0));
+                distination.Add(new Vector3(1, 1));
+                distination.Add(new Vector3(-0, -1));
+                distination.Add(new Vector3(1, 0));
+                distination.Add(new Vector3(-1, -1));
+                distination.Add(new Vector3(1, -1));
+                canPromotion = false;
+                break;
+            default:
+                break;
+
         }
         distination.Remove(new Vector3(0, 0));
         SpriteRenderer psp = GetComponent<SpriteRenderer>();
