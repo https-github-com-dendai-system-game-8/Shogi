@@ -109,9 +109,9 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                 {
                     if (pieceStatus[i].CheckSelected() && pieceStatus[i].piecePosition.y >= 0 && pieceStatus[i].piecePosition.y <= 8)
                     {
-                        IndicatePoint();
                         isMoveStage = true;//他の駒を選択できなくする
                         tmp = i;//選択された駒の番号を保存
+                        IndicatePoint();
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();//駒の色を変えられる状態にする
                         pieceSprite.color = Color.gray;//駒の色を変える
                         foreach (var col in piecesCollider)//駒の判定を消す
@@ -123,8 +123,8 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                     }
                     else if (pieceStatus[i].CheckSelected())
                     {
-                        IndicatePoint();
                         tmp = i;
+                        IndicatePoint();
                         isMoveStage = true;
                         isPawnPlay = true;
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();//駒の色を変えられる状態にする
@@ -171,7 +171,11 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
         }
         if (Input.GetKeyDown(KeyCode.Escape))//エスケープが押されたらゲームを閉じる
         {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
+#endif
         }
     }
 
