@@ -22,7 +22,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
     public Sprite promotionSprite;//成った後の見た目
     public int pieceID;//駒を識別する番号
     public float piecePoint = 0;//駒に割り振られたポイント
-    public int[] deckNum = {0,1};
+    public int[] deckNum = {0,1};//デッキの番号
 
     public bool isSelect = false;//この駒が選ばれているかどうか
     public Vector3 piecePosition;//現在の駒の位置
@@ -34,11 +34,17 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
 
     private void Start()
     {
+        deckNum[0] = DeckNumber.selectedNumber[0];
+        deckNum[1] = DeckNumber.selectedNumber[1];
         PieceInitialize();
         piecePosition = startPosition;
         transform.localPosition = (piecePosition - new Vector3(4, 4)) * PiecesMove.gridSize;
         pieceID = holder * type;
         grLen = GameObject.FindGameObjectsWithTag("Grid").Length;
+        int p = 0;
+        if (holder == 1)
+            p = 1;
+        piecePoint = Convert.ToSingle(File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + deckNum[p] + ".txt")[type]);
     }
 
     void Update()
@@ -315,16 +321,14 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
             startPosition *= -1;
             startPosition += new Vector3(4, 4);
             gameObject.layer = 3;
-            if(type < 21)
-                piecePoint = Convert.ToSingle(File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + deckNum[1] + ".txt")[type]);
+            
         }
         else if(player == -1)
         {
             psp.flipX = false;
             psp.flipY = false;
             gameObject.layer = 0;
-            if (type < 21)
-                piecePoint = Convert.ToSingle(File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + deckNum[0] + ".txt")[type]);
+                
         }
     }
 

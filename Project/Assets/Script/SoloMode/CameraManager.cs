@@ -7,8 +7,8 @@ using UnityEngine.UIElements;
 public class CameraManager : MonoBehaviour
 {
     public Transform m_target;//‰ñ“]‚Ì’†S²
-    [SerializeField] private int speed;//‘OŒã‚·‚é‘¬‚³
-    public float m_rotateSpeed = 10;
+    [SerializeField] private int speed = 10;//‘OŒã‚·‚é‘¬‚³
+    public float m_rotateSpeed = 30;
     private GameObject otherCamera;
     [SerializeField] private Vector3 axis = new Vector3(1,0,0);
 

@@ -65,22 +65,5 @@ public class CanvasActive : MonoBehaviour//ƒƒjƒ…[‚ğŠJ‚¢‚½‚è•Â‚¶‚½‚è‚·‚é
         
     }
 
-    public void ChangeStage()
-    {
-        foreach (var obj in secondStage)
-        {
-            obj.SetActive(true);
-        }
-        foreach (var obj in firstStage)
-        {
-            obj.SetActive(false);
-        }
-        Time.timeScale = 0f;
-        if (FindObjectOfType<Selectable>() != null)
-        {
-            FindObjectOfType<Selectable>().Select();
-        }
-        isOpen = true;
-    }
-    
+   
 }

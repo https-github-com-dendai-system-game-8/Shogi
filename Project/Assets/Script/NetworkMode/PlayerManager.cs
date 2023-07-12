@@ -85,6 +85,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             // Transformの値をストリームに書き込んで送信する
             for(int i = 0;i < pieceStatus.Length; i++)
             {
+                stream.SendNext(pieceStatus[i].piecePoint);
                 stream.SendNext(pieceStatus[i].pieceID);
                 stream.SendNext(pieceStatus[i].type);
                 stream.SendNext(pieceStatus[i].promotionType);
@@ -105,6 +106,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     if (pieceStatus[j].pieceID == tmpi)
                     {
                         int tmptype = pieceStatus[j].type;
+                        pieceStatus[j].piecePoint = (int)stream.ReceiveNext();
                         pieceStatus[j].type = (int)stream.ReceiveNext();
                         pieceStatus[j].promotionType = (int)stream.ReceiveNext();
                         pieceStatus[j].player = (int)stream.ReceiveNext();

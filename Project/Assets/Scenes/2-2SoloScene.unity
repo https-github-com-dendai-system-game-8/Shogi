@@ -2533,15 +2533,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 540726127}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6bbc8aedb7eb4a4cbbba84b482044ab, type: 3}
+  m_Script: {fileID: 11500000, guid: faa7f3709e9abec41aabca5e2acfca52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: {fileID: 1986257874}
-  speed: 30
+  speed: 10
   m_rotateSpeed: 30
-  axis: {x: 0, y: 0, z: 1}
-  maxOut: {x: 0, y: 0, z: 0}
-  maxIn: {x: 0, y: 0, z: 0}
+  axis: {x: 1, y: 0, z: 0}
 --- !u!114 &540726133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5011,15 +5009,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6bbc8aedb7eb4a4cbbba84b482044ab, type: 3}
+  m_Script: {fileID: 11500000, guid: faa7f3709e9abec41aabca5e2acfca52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: {fileID: 1986257874}
-  speed: 30
+  speed: 10
   m_rotateSpeed: 30
-  axis: {x: 0, y: 0, z: 1}
-  maxOut: {x: 0, y: 0, z: 0}
-  maxIn: {x: 0, y: 0, z: 0}
+  axis: {x: 1, y: 0, z: 0}
 --- !u!114 &963194232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9247,6 +9243,7 @@ MonoBehaviour:
   playerLog:
   - {fileID: 395832528}
   - {fileID: 1584552100}
+  masterLog: {fileID: 788451882}
   isMoveStage: 0
   isPawnPlay: 0
   isCanTouch: 1
