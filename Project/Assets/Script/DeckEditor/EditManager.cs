@@ -49,7 +49,6 @@ public class EditManager : MonoBehaviour
             string[] str = File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + i + ".txt");
             deckData[i] = new DeckData(str[^1],i);
         }
-            
         deckNameField = FindObjectOfType<InputField>().GetComponent<InputField>();
         deckNameField.gameObject.SetActive(false);
         for (int i = 0; i < status.Length; i++)
@@ -62,7 +61,7 @@ public class EditManager : MonoBehaviour
         
         if (!canvasActive.isOpen)//デッキを編集する画面がとじていたら
         {
-            if (isStart == true)
+            if (isStart)
             {
                 isStart = false;
                 Save();
@@ -87,9 +86,9 @@ public class EditManager : MonoBehaviour
         int sum = 0;
         for (int i = 0; i < status.Length - 1; i++)//合計ポイントを計算し残りから引く
             sum += status[i];
-        if (status[pieceID] < 0)//合計値が限界を超えたらそこで止める
+        if (status[pieceID] < 0)//0を下回らないようにする
             status[pieceID] = 0;
-        else if (status[pieceID] > pieceMax || sum > deckMax)
+        else if (status[pieceID] > pieceMax || sum > deckMax)//合計値もしくは個々の限界を超えないようにする
         {
             while (status[pieceID] > pieceMax || sum > deckMax)
             {
@@ -125,13 +124,13 @@ public class EditManager : MonoBehaviour
         pieceType = type;
     }
 
-    public void GetDeckID(int id)
+    public void GetDeckID(int id)//
     {
         nowDeckID = id;
         deckData[nowDeckID].deckName = Application.dataPath + "/Resources/pieceStatus" + id + ".txt";
     }
 
-    private void Save()
+    private void Save()//保存する処理
     {
         deckData[nowDeckID].deckName = deckNameField.text;
         for (int i = 0; i < status.Length; i++)
@@ -140,7 +139,7 @@ public class EditManager : MonoBehaviour
         File.WriteAllLines(path, statusStr);
     }
 
-    private void ChangeValue()
+    private void ChangeValue()//値を変化させる処理
     {
         Debug.Log("変化ちゅう");
         time++;
@@ -204,5 +203,11 @@ public class EditManager : MonoBehaviour
     {
         for (int i = 0; i < status.Length; i++)
             status[i] = 0;
+    }
+
+    public void RestoreDeck()
+    {
+        for (int i = 0; i < status.Length; i++)
+            status[i] = Convert.ToInt32(File.ReadAllLines(path)[i]);
     }
 }
