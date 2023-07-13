@@ -118,7 +118,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         {
                             col.enabled = false;
                         }
-                        Debug.Log("移動モードに移行");
+                        masterLog.text = "駒を選択しました";
                         break;
                     }
                     else if (pieceStatus[i].CheckSelected())
@@ -133,7 +133,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         {
                             col.enabled = false;
                         }
-                        Debug.Log("移動モードに移行");
+                        masterLog.text = "駒を選択しました";
                         break;
                     }
                 }
@@ -196,7 +196,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
         for (int i = 0; i < pieceStatus.Length; i++)//ココからマスに駒が乗っているかどうかを確認
         {
             if (distinationgrid.myPosition == pieceStatus[i].piecePosition && pieceStatus[i].player == pieceStatus[tmp].player)
-                //乗っているなら移動不可にする
+                //味方の駒が乗っているなら移動不可にする
             {
                 isCanMove = false;
                 yield break;
@@ -204,10 +204,10 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
             else if (distinationgrid.myPosition == pieceStatus[i].piecePosition && pieceStatus[i].player != pieceStatus[tmp].player)
                 //敵の駒なら勝負
             {
-                if (pieceStatus[i].piecePoint > pieceStatus[tmp].piecePoint)
-                    getPawn = tmp;
-                else
+                if (pieceStatus[i].piecePoint <= pieceStatus[tmp].piecePoint || pieceStatus[tmp].type == 16)
                     getPawn = i;
+                else
+                    getPawn = tmp;
             }
             if (selectedPiece.type == 11 || selectedPiece.type == 12 || selectedPiece.type == 20 || selectedPiece.type == 23)//香車と飛車の処理
             {

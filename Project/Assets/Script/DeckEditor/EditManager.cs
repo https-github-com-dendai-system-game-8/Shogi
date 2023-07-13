@@ -32,7 +32,7 @@ public class EditManager : MonoBehaviour
     public DeckData[] deckData = new DeckData[10];//編集するデッキのデータ
     private int nowDeckID;
     private InputField deckNameField;//デッキ名を入力する場所
-    public int deckMax = 200;
+    public int deckMax = 60;//デッキのポイントの合計の限界値
     public int pieceID = 0;//編集する駒の番号
     public int pieceMax = 0;//編集する駒の最大値
     public int pieceType = 0;//編集する駒の種類
@@ -199,13 +199,16 @@ public class EditManager : MonoBehaviour
         statusStr[^1] = name.text;
     }
 
-    public void DeckPointReset()
+    public void DeckPointReset()//
     {
         for (int i = 0; i < status.Length; i++)
             status[i] = 0;
+        deckNameField.text = "Deck" + nowDeckID;
+        statusStr[^1] = "Deck" + nowDeckID;
+        
     }
 
-    public void RestoreDeck()
+    public void RestoreDeck()//デッキを直前のセーブに戻す
     {
         for (int i = 0; i < status.Length; i++)
             status[i] = Convert.ToInt32(File.ReadAllLines(path)[i]);
