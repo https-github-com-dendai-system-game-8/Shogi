@@ -36,31 +36,31 @@ public class EditStatus : MonoBehaviour, IPointerClickHandler
         switch (type)
         {
             case 0:
-                max = 98;
+                max = 10;
                 break;
             case 1:
-                max = 96;
+                max = 10;
                 break;
             case 2:
-                max = 92;
+                max = 10;
                 break;
             case 3:
-                max = 90;
+                max = 10;
                 break;
             case 4:
-                max = 88;
+                max = 10;
                 break;
             case 5:
-                max = 68;
+                max = 10;
                 break;
             case 6:
-                max = 68;
+                max = 10;
                 break;
             case 7:
                 max = 0;
                 break;
             default:
-                max = 0;
+                max = 10;
                 break;
         }
     }

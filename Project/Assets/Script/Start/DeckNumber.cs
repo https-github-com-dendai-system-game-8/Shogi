@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using System;
 
 public class DeckNumber : MonoBehaviour
 {
     public static int[] selectedNumber = { 0, 1 };
+    public static int index;
+    public static int n;
 
+    [SerializeField]private Text[] text = new Text[2];
     [SerializeField] private int num;
     private Text deckName;
+    
     // Start is called before the first frame update
    
 
@@ -21,6 +26,10 @@ public class DeckNumber : MonoBehaviour
 
     public void OnClick()
     {
-        selectedNumber[0] = num;
+        if (index >= n)
+            index = 0;
+        text[index].text = Convert.ToString(num);
+        selectedNumber[index++] = num;
+        
     }
 }

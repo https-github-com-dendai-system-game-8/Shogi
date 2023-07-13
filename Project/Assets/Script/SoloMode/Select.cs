@@ -8,11 +8,13 @@ public class Select : MonoBehaviour
     [SerializeField]private GameObject[] choice;//YESとNOのボタンを取得
 
     [SerializeField]private Text logText;//ログを出すテキストオブジェクト
+    private string firstLog;//ログの基本の状態
 
     [SerializeField,Multiline] private string before;//選択前に表示するテキストの内容
     [SerializeField,Multiline] private string after; //選択後に表示するテキストの内容
     private void Awake()
     {
+        firstLog = logText.text;
         foreach(var obj in choice)
         {
             obj.SetActive(false);
@@ -35,7 +37,7 @@ public class Select : MonoBehaviour
         {
             obj.SetActive(false);
         }
-        logText.text = "log";
+        logText.text = firstLog;
         if(FindObjectOfType<Selectable>() != null) FindObjectOfType<Selectable>().Select();
 
     }
