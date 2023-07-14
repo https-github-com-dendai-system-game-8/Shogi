@@ -23,6 +23,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
     public int pieceID;//駒を識別する番号
     public float piecePoint = 0;//駒に割り振られたポイント
     public int[] deckNum = {0,1};//デッキの番号
+    public string role;//駒の名前
 
     public bool isSelect = false;//この駒が選ばれているかどうか
     public Vector3 piecePosition;//現在の駒の位置
@@ -82,6 +83,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 canPromotion = true;
                 promotionType = 21;
                 distination.Add(new Vector3(0, 1));
+                role = "歩兵";
                 break;
             case 2:
                 startPosition = new Vector3(7, 2);
@@ -89,6 +91,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 canPromotion = true;
                 promotionType = 21;
                 distination.Add(new Vector3(0, 1));
+                role = "歩兵";
                 break;
             case 3:
                 startPosition = new Vector3(6, 2);
@@ -96,6 +99,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 canPromotion = true;
                 promotionType = 21;
                 distination.Add(new Vector3(0, 1));
+                role = "歩兵";
                 break;
             case 4:
                 startPosition = new Vector3(5, 2);
@@ -103,6 +107,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 canPromotion = true;
                 promotionType = 21;
                 distination.Add(new Vector3(0, 1));
+                role = "歩兵";
                 break;
             case 5:
                 startPosition = new Vector3(4, 2);
@@ -110,6 +115,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 canPromotion = true;
                 promotionType = 21;
                 distination.Add(new Vector3(0, 1));
+                role = "歩兵";
                 break;
             case 6:
                 startPosition = new Vector3(3, 2);
@@ -117,6 +123,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 canPromotion = true;
                 promotionType = 21;
                 distination.Add(new Vector3(0, 1));
+                role = "歩兵";
                 break;
             case 7:
                 startPosition = new Vector3(2, 2);
@@ -124,6 +131,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 canPromotion = true;
                 promotionType = 21;
                 distination.Add(new Vector3(0, 1));
+                role = "歩兵";
                 break;
             case 8:
                 startPosition = new Vector3(1, 2);
@@ -131,6 +139,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 canPromotion = true;
                 promotionType = 21;
                 distination.Add(new Vector3(0, 1));
+                role = "歩兵";
                 break;
             case 9:
                 startPosition = new Vector3(0, 2);
@@ -138,6 +147,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 canPromotion = true;
                 promotionType = 21;
                 distination.Add(new Vector3(0, 1));
+                role = "歩兵";
                 break;
             case 10:
                 startPosition = new Vector3(1, 1);
@@ -149,6 +159,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                     distination.Add(new Vector3(n, n));
                     distination.Add(new Vector3(n, -n));
                 }
+                role = "角行";
                 break;
             case 11:
                 startPosition = new Vector3(7, 1);
@@ -160,6 +171,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                     distination.Add(new Vector3(n, 0));
                     distination.Add(new Vector3(0, n));
                 }
+                role = "飛車";
                 break;
             case 12:
                 startPosition = new Vector3(8, 0);
@@ -168,6 +180,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 promotionType = 21;
                 for (int n = 0; n < 9; n++) 
                     distination.Add(new Vector3(0, n));
+                role = "香車";
                 break;
             case 13:
                 startPosition = new Vector3(7, 0);
@@ -176,6 +189,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 promotionType = 21;
                 distination.Add(new Vector3(1, 2));
                 distination.Add(new Vector3(-1, 2));
+                role = "桂馬";
                 break;
             case 14:
                 startPosition = new Vector3(6, 0);
@@ -187,6 +201,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 distination.Add(new Vector3(1, 1));
                 distination.Add(new Vector3(-1, -1));
                 distination.Add(new Vector3(1, -1));
+                role = "銀将";
                 break;
             case 15:
                 startPosition = new Vector3(5, 0);
@@ -198,6 +213,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 distination.Add(new Vector3(-0, -1));
                 distination.Add(new Vector3(1, 0));
                 canPromotion = false;
+                role = "金将";
                 break;
             case 16:
                 startPosition = new Vector3(4, 0);
@@ -212,6 +228,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 distination.Add(new Vector3(-1, -1));
                 distination.Add(new Vector3(1, -1));
                 canPromotion = false;
+                role = "王将";
                 break;
             case 17:
                 startPosition = new Vector3(3, 0);
@@ -223,6 +240,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 distination.Add(new Vector3(-0, -1));
                 distination.Add(new Vector3(1, 0));
                 canPromotion = false;
+                role = "金将";
                 break;
             case 18:
                 startPosition = new Vector3(2, 0);
@@ -234,6 +252,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 distination.Add(new Vector3(1, 1));
                 distination.Add(new Vector3(-1, -1));
                 distination.Add(new Vector3(1, -1));
+                role = "銀将";
                 break;
             case 19:
                 startPosition = new Vector3(1, 0);
@@ -242,6 +261,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 promotionType = 21;
                 distination.Add(new Vector3(1, 2));
                 distination.Add(new Vector3(-1, 2));
+                role = "桂馬";
                 break;
             case 20:
                 startPosition = new Vector3(0, 0);
@@ -252,6 +272,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
                 {
                     distination.Add(new Vector3(0, Mathf.Abs(n)));
                 }
+                role = "香車";
                 break;
             case 21:
                 startPosition = new Vector3(0, 0);
