@@ -28,17 +28,7 @@ public class CameraManager : MonoBehaviour
     }
     private void Update()
     {
-        Vector3 tr = transform.localPosition;
-        if (tr.x * tr.x + tr.y * tr.y + tr.z * tr.z < 10)
-        {
-            transform.Translate(-Vector3.forward);
-            return;
-        }
-        else if (tr.x * tr.x + tr.y * tr.y + tr.z * tr.z > 200)
-        {
-            transform.Translate(Vector3.forward);
-            return;
-        }
+        
         if (tag == "MainCamera" && otherCamera.activeInHierarchy)
         {
             transform.RotateAround(m_target.position, axis, m_rotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
@@ -56,6 +46,14 @@ public class CameraManager : MonoBehaviour
             transform.RotateAround(m_target.position, axis, m_rotateSpeed * -Input.GetAxis("Horizontal3") * Time.deltaTime);
             transform.Translate(Input.GetAxis("Vertical3") * Vector3.forward * speed * Time.deltaTime);
         }
-        
+        Vector3 tr = transform.localPosition;
+        if (tr.x * tr.x + tr.y * tr.y + tr.z * tr.z < 10)
+        {
+            transform.Translate(-Vector3.forward);
+        }
+        else if (tr.x * tr.x + tr.y * tr.y + tr.z * tr.z > 200)
+        {
+            transform.Translate(Vector3.forward);
+        }
     }
 }
