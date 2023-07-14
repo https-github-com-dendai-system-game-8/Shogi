@@ -55,6 +55,13 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         isMoveStage = false;//他の駒を選べない状態を解除
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
                         pieceSprite.color = Color.white;//駒の色を戻す
+                        SpriteRenderer[] gridSprite = new SpriteRenderer[grid.Length];
+                        for (int k = 0; k < grid.Length; k++)
+                        {
+                            gridSprite[k] = grid[k].transform.Find("ステージ選択個別背景").gameObject.GetComponent<SpriteRenderer>();
+                            gridSprite[k].color = Color.white;
+                        }
+                            
                         masterLog.text = "移動終了";
                         isPromotion = false;
                         foreach (var col in piecesCollider)//駒の判定を戻す
@@ -73,6 +80,12 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         isMoveStage = false;//他の駒を選択できない状態を解除
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
                         pieceSprite.color = Color.white;//駒の色を戻す
+                        SpriteRenderer[] gridSprite = new SpriteRenderer[grid.Length];
+                        for (int k = 0; k < grid.Length; k++)
+                        {
+                            gridSprite[k] = grid[k].transform.Find("ステージ選択個別背景").gameObject.GetComponent<SpriteRenderer>();
+                            gridSprite[k].color = Color.white;
+                        }
                         masterLog.text = "そこは移動できません";
                         foreach (var col in piecesCollider)//駒の判定を戻す
                         {
@@ -114,11 +127,31 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         IndicatePoint();
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();//駒の色を変えられる状態にする
                         pieceSprite.color = Color.gray;//駒の色を変える
+                        SpriteRenderer[] gridSprite = new SpriteRenderer[pieceStatus[tmp].distination.Count];//マスの色を変えられる状態にする
+                        int j = 0;
+                        for (int k = 0; k < grid.Length; k++)
+                        {
+                            for (int l = 0; l < pieceStatus[tmp].distination.Count; l++)
+                            {
+                                if (gridStatus[k].myPosition - pieceStatus[tmp].piecePosition == pieceStatus[tmp].distination[l])
+                                    gridSprite[j++] = grid[k].transform.Find("ステージ選択個別背景").GetComponent<SpriteRenderer>();
+                            }
+                            
+                        }
+                        for(int k = 0;k < gridSprite.Length; k++)//色を変える
+                        {
+                            if (gridSprite[k] != null) 
+                            {
+                                gridSprite[k].color = Color.gray;
+                            }
+                        }
+                            
+                        
                         foreach (var col in piecesCollider)//駒の判定を消す
                         {
                             col.enabled = false;
                         }
-                        masterLog.text = "駒を選択しました";
+                        masterLog.text = pieceStatus[tmp].role + "を選択しました";
                         break;
                     }
                     else if (pieceStatus[i].CheckSelected())
@@ -133,7 +166,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         {
                             col.enabled = false;
                         }
-                        masterLog.text = "駒を選択しました";
+                        masterLog.text = pieceStatus[tmp].role + "を選択しました";
                         break;
                     }
                 }
@@ -392,9 +425,9 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
     private void IndicatePoint()
     {
         if (pieceStatus[tmp].player == -1)
-            playerLog[0].text = Convert.ToString(pieceStatus[tmp].piecePoint);
+            playerLog[0].text = Convert.ToString(pieceStatus[tmp].piecePoint) + "p";
         else if (pieceStatus[tmp].player == 1)
-            playerLog[1].text = Convert.ToString(pieceStatus[tmp].piecePoint);
+            playerLog[1].text = Convert.ToString(pieceStatus[tmp].piecePoint) + "p";
     }
 
     private void GameEndEffect(int winner)//勝利時のエフェクト
