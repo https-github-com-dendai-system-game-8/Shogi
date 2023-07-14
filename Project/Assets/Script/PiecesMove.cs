@@ -80,11 +80,11 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         isMoveStage = false;//他の駒を選択できない状態を解除
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
                         pieceSprite.color = Color.white;//駒の色を戻す
-                        SpriteRenderer[] gridSprite = new SpriteRenderer[grid.Length];
+                        SpriteRenderer[] gridSprite = new SpriteRenderer[grid.Length];//マスの色を戻せるようにする
                         for (int k = 0; k < grid.Length; k++)
                         {
                             gridSprite[k] = grid[k].transform.Find("ステージ選択個別背景").gameObject.GetComponent<SpriteRenderer>();
-                            gridSprite[k].color = Color.white;
+                            gridSprite[k].color = Color.white;//マスの色を戻す
                         }
                         masterLog.text = "そこは移動できません";
                         foreach (var col in piecesCollider)//駒の判定を戻す
