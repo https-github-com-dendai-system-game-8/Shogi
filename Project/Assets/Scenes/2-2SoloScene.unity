@@ -8709,9 +8709,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1876061206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13e1d684ca0896247abb45e05ff576e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 431d418bd820d49449d4cb0f0e8be5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: End
 --- !u!4 &1890787324 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1046819085628082018, guid: 4a8177305dd4774438909dc8ae7e71ca, type: 3}
