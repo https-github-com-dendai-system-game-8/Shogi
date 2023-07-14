@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 31baf360a25113b49a9832bdc932c639, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 20d8558ebd0ab8449853bd86ba7dc535, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -120,5 +120,7 @@ MonoBehaviour:
   promotionType: 0
   promotionSprite: {fileID: 21300000, guid: 42815e52bbc2b4046ab1e1d550709f58, type: 3}
   pieceID: 0
+  piecePoint: 0
+  deckNum: 0000000001000000
   isSelect: 0
   piecePosition: {x: 0, y: 0, z: 0}
