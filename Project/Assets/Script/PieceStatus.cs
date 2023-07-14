@@ -315,8 +315,8 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
             {
                 distination[i] *= -1;
             }
-            psp.flipX = true;
-            psp.flipY = true;
+            //psp.flipX = true;
+            //psp.flipY = true;
             startPosition -= new Vector3(4, 4);
             startPosition *= -1;
             startPosition += new Vector3(4, 4);
@@ -325,8 +325,8 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
         }
         else if(player == -1)
         {
-            psp.flipX = false;
-            psp.flipY = false;
+            //psp.flipX = false;
+            //psp.flipY = false;
             gameObject.layer = 0;
                 
         }
