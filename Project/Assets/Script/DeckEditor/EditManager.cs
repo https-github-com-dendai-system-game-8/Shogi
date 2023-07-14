@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System.IO;
 using System;
-using Unity.VisualScripting;
+using System.IO;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DeckData
 {
@@ -25,13 +22,13 @@ public class DeckData
 }
 public class EditManager : MonoBehaviour
 {
-
     private string[] statusStr;//各コマのポイント(文字列)とデッキ名
     public int[] status = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};//各コマのポイント(数字)
     private string path;//デッキを保存するファイル
     public DeckData[] deckData = new DeckData[10];//編集するデッキのデータ
-    private int nowDeckID;
+    private int nowDeckID;//現在編集中のデッキの番号
     private InputField deckNameField;//デッキ名を入力する場所
+    [SerializeField]private Indicate[] indicate;//ボタンの上のデッキ名を表示するところ
     public int deckMax = 60;//デッキのポイントの合計の限界値
     public int pieceID = 0;//編集する駒の番号
     public int pieceMax = 0;//編集する駒の最大値
@@ -39,7 +36,7 @@ public class EditManager : MonoBehaviour
     private int time = 0;//長押しした時間
     private Text text;//編集中のデータを表示するテキスト
     private CanvasActive canvasActive;//これを使って編集可能かどうかを判断
-    private bool isStart = false;
+    private bool isStart = false;//編集を出来ているかどうか
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +62,8 @@ public class EditManager : MonoBehaviour
             {
                 isStart = false;
                 Save();
+                for (int i = 0; i < indicate.Length; i++)
+                    indicate[i].ChangeDeckIndicate();
                 deckNameField.gameObject.SetActive(false);
             }
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -143,15 +142,15 @@ public class EditManager : MonoBehaviour
     {
         Debug.Log("変化ちゅう");
         time++;
-        if (time % 60 == 0)
+        if (time % 20 == 0)
         {
-            status[pieceID] += (int)Input.GetAxisRaw("Vertical3");
-            status[pieceID] += (int)Input.GetAxisRaw("Horizontal3") * 10;
+            status[pieceID] += (int)Input.GetAxisRaw("Vertical");
+            status[pieceID] += (int)Input.GetAxisRaw("Horizontal") * 10;
         }
         else if (time == 1)
         {
-            status[pieceID] += (int)Input.GetAxisRaw("Vertical3");
-            status[pieceID] += (int)Input.GetAxisRaw("Horizontal3") * 10;
+            status[pieceID] += (int)Input.GetAxisRaw("Vertical");
+            status[pieceID] += (int)Input.GetAxisRaw("Horizontal") * 10;
         }
 
     }

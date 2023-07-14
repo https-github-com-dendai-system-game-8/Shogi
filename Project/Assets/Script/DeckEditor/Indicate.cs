@@ -14,7 +14,14 @@ public class Indicate : MonoBehaviour
 
     private void OnEnable()
     {
-        Text text = GetComponent<Text>();
+       
+        ChangeDeckIndicate();
+        
+    }
+
+    public void ChangeDeckIndicate()
+    {
+         Text text = GetComponent<Text>();
         try
         {
             EditManager edi = GameObject.FindGameObjectWithTag("DeckDataManager").GetComponent<EditManager>();
@@ -28,8 +35,6 @@ public class Indicate : MonoBehaviour
             
             text.text = str[^1];
         }
-        
-        
     }
     // Update is called once per frame
 
