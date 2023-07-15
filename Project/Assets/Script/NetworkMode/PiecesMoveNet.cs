@@ -64,6 +64,12 @@ public class PiecesMoveNet : PiecesMove
                         isMoveStage = false;//他の駒を選択できない状態を解除
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
                         pieceSprite.color = Color.white;//駒の色を戻す
+                        SpriteRenderer[] gridSprite = new SpriteRenderer[grid.Length];//マスの色を戻せるようにする
+                        for (int k = 0; k < grid.Length; k++)
+                        {
+                            gridSprite[k] = grid[k].transform.Find("ステージ選択個別背景").gameObject.GetComponent<SpriteRenderer>();
+                            gridSprite[k].color = Color.white;//マスの色を戻す
+                        }
                         masterLog.text = "そこは移動できません";
                         foreach (var col in piecesCollider)//駒の判定を戻す
                         {
@@ -109,7 +115,7 @@ public class PiecesMoveNet : PiecesMove
                         {
                             col.enabled = false;
                         }
-                        Debug.Log("移動モードに移行");
+                        masterLog.text = pieceStatus[tmp].role + "が選択されています";
                         break;
                     }
                     else if (pieceStatus[i].CheckSelected())//持ち駒を選んだ場合
@@ -123,7 +129,25 @@ public class PiecesMoveNet : PiecesMove
                         {
                             col.enabled = false;
                         }
-                        Debug.Log("移動モードに移行");
+                        SpriteRenderer[] gridSprite = new SpriteRenderer[pieceStatus[tmp].distination.Count];//マスの色を変えられる状態にする
+                        int j = 0;
+                        for (int k = 0; k < grid.Length; k++)
+                        {
+                            for (int l = 0; l < pieceStatus[tmp].distination.Count; l++)
+                            {
+                                if (gridStatus[k].myPosition - pieceStatus[tmp].piecePosition == pieceStatus[tmp].distination[l])
+                                    gridSprite[j++] = grid[k].transform.Find("ステージ選択個別背景").GetComponent<SpriteRenderer>();
+                            }
+
+                        }
+                        for (int k = 0; k < gridSprite.Length; k++)//色を変える
+                        {
+                            if (gridSprite[k] != null)
+                            {
+                                gridSprite[k].color = Color.gray;
+                            }
+                        }
+                        masterLog.text = pieceStatus[tmp].role + "が選択されています";
                         break;
                     }
                 }
