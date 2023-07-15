@@ -7,13 +7,12 @@ using System;
 
 public class DeckNumber : MonoBehaviour
 {
-    public static int[] selectedNumber = { 0, 1 };
-    public static int index;
-    public static int n;
-
-    [SerializeField]private Text[] text = new Text[2];
-    [SerializeField] private int num;
-    private Text deckName;
+    public static int[] selectedNumber = { 0, 1 };//選ばれているデッキ
+    public static int index;//どちらのデッキを変更しようとしているか
+    public static int n;//プレイヤーの総数
+    [SerializeField]private Text[] text = new Text[2];//デッキ名を表示するテキスト
+    [SerializeField] private int num;//デッキの番号
+    private Text deckName;//デッキ名
     
     // Start is called before the first frame update
    
@@ -35,6 +34,7 @@ public class DeckNumber : MonoBehaviour
 
     public void OnClick()
     {
+        Debug.Log(n);
         if (index >= n)
             index = 0;
         text[index].text = deckName.text;
