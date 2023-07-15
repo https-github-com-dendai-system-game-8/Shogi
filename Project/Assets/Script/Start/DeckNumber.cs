@@ -37,7 +37,7 @@ public class DeckNumber : MonoBehaviour
     {
         if (index >= n)
             index = 0;
-        text[index].text = Convert.ToString(num);
+        text[index].text = deckName.text;
         selectedNumber[index++] = num;
         
     }

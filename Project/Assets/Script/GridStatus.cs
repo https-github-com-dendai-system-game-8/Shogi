@@ -11,7 +11,13 @@ public class GridStatus : MonoBehaviour,IPointerClickHandler
     public bool isSelect = false;//このマスが選ばれたかどうか
     public bool pieceIsOn = false;//このマスに駒が乗ってるかどうか
     public bool safe;
-
+    private SpriteRenderer gridRenderer;
+    public Color myColor;
+    void Start()
+    {
+        gridRenderer = transform.Find("ステージ選択個別背景").GetComponent<SpriteRenderer>();
+        myColor = gridRenderer.color;
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (safe)
