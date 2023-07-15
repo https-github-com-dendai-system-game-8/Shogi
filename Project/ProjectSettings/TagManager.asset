@@ -13,6 +13,7 @@ TagManager:
   - Avator
   - PointData
   - DeckDataManager
+  - SE
   layers:
   - Default
   - TransparentFX
