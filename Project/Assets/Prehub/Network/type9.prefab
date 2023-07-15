@@ -118,9 +118,10 @@ MonoBehaviour:
   holder: 0
   canPromotion: 1
   promotionType: 0
-  promotionSprite: {fileID: 21300000, guid: 7a8ac586d2c447b4f940b25875b9b04b, type: 3}
+  promotionSprite: {fileID: 21300000, guid: e4c72bbb99fe78b4f962abc5ce2ee27e, type: 3}
   pieceID: 0
   piecePoint: 0
   deckNum: 0000000001000000
+  role: 
   isSelect: 0
   piecePosition: {x: 0, y: 0, z: 0}

@@ -34,6 +34,7 @@ public class DeckNumber : MonoBehaviour
 
     public void OnClick()
     {
+        Debug.Log(n);
         if (index >= n)
             index = 0;
         text[index].text = deckName.text;
