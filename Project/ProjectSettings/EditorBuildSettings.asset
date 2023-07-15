@@ -8,10 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/1StartScene.unity
     guid: e3dc355de7e01cc4eb702e48619acd64
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/2-1NetWorkScene.unity
     guid: c08586e68525283438b46acc80b5b8a3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/2-2SoloScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
@@ -25,7 +25,7 @@ EditorBuildSettings:
     guid: 873373f26ee0ae7498bf64bedc037886
   - enabled: 1
     path: Assets/Scenes/stage2_net.unity
-    guid: cf2fe3a917f0f75499c56dc07e632117
+    guid: bc8101cc2deed284eb65d621e55e6bf2
   - enabled: 1
     path: Assets/Scenes/stage3.unity
     guid: 589a157f747b12a4c9bd4266fb39db44
