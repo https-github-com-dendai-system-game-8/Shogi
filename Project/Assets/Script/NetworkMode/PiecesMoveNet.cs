@@ -68,7 +68,7 @@ public class PiecesMoveNet : PiecesMove
                         for (int k = 0; k < grid.Length; k++)
                         {
                             gridSprite[k] = grid[k].transform.Find("ステージ選択個別背景").gameObject.GetComponent<SpriteRenderer>();
-                            gridSprite[k].color = Color.white;//マスの色を戻す
+                            gridSprite[k].color = gridStatus[k].myColor;//マスの色を戻す
                         }
                         masterLog.text = "そこは移動できません";
                         foreach (var col in piecesCollider)//駒の判定を戻す
