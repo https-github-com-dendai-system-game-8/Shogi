@@ -22,6 +22,15 @@ public class DeckNumber : MonoBehaviour
     {
         deckName = transform.Find("Text").gameObject.GetComponent<Text>();
         deckName.text = File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + num + ".txt")[^1];
+        for(int i = 0;i < selectedNumber.Length;i++)
+        {
+            if(selectedNumber[i] != 0)
+                selectedNumber[i] = 0;
+            if (text[i].text != "–¢‘I‘ð")
+                text[i].text = "–¢‘I‘ð";
+        }
+        if(index != 0)
+            index = 0;
     }
 
     public void OnClick()
