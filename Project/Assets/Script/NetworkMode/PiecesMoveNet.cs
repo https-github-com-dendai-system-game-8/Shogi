@@ -44,6 +44,12 @@ public class PiecesMoveNet : PiecesMove
                         {
                             col.enabled = true;
                         }
+                        SpriteRenderer[] gridSprite = new SpriteRenderer[grid.Length];//マスの色を戻せるようにする
+                        for (int k = 0; k < grid.Length; k++)
+                        {
+                            gridSprite[k] = grid[k].transform.Find("ステージ選択個別背景").gameObject.GetComponent<SpriteRenderer>();
+                            gridSprite[k].color = gridStatus[k].myColor;//マスの色を戻す
+                        }
                         pieceStatus[tmp].piecePosition = new Vector2(Mathf.Round(pieces[tmp].transform.localPosition.x), Mathf.Round(pieces[tmp].transform.localPosition.y)) / gridSize + new Vector2(4, 4);
                         Debug.Log(pieceStatus[tmp].piecePosition);
                         if (playerManager == null)//プレイヤーデータがない場合手に入れる
@@ -114,6 +120,24 @@ public class PiecesMoveNet : PiecesMove
                         foreach (var col in piecesCollider)//駒の判定を消す
                         {
                             col.enabled = false;
+                        }
+                        SpriteRenderer[] gridSprite = new SpriteRenderer[pieceStatus[tmp].distination.Count];//マスの色を変えられる状態にする
+                        int j = 0;
+                        for (int k = 0; k < grid.Length; k++)
+                        {
+                            for (int l = 0; l < pieceStatus[tmp].distination.Count; l++)
+                            {
+                                if (gridStatus[k].myPosition - pieceStatus[tmp].piecePosition == pieceStatus[tmp].distination[l])
+                                    gridSprite[j++] = grid[k].transform.Find("ステージ選択個別背景").GetComponent<SpriteRenderer>();
+                            }
+
+                        }
+                        for (int k = 0; k < gridSprite.Length; k++)//色を変える
+                        {
+                            if (gridSprite[k] != null)
+                            {
+                                gridSprite[k].color = Color.gray;
+                            }
                         }
                         masterLog.text = pieceStatus[tmp].role + "が選択されています";
                         break;

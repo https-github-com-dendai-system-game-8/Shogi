@@ -45,7 +45,7 @@ public class PieceStatus : MonoBehaviour,IPointerClickHandler
         int p = 0;
         if (holder == 1)
             p = 1;
-        piecePoint = Convert.ToSingle(File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + deckNum[p] + ".txt")[type]);
+        piecePoint = Convert.ToSingle(File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + deckNum[p] + ".txt")[type - 1]);
     }
 
     void Update()
