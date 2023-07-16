@@ -32,26 +32,7 @@ public class PiecesMoveNet : PiecesMove
 
                     if (gridStatus[i].isSelect && MoveLimit(i))//移動先の選択が完了していたら移動させる
                     {
-                        pieces[tmp].transform.localPosition = grid[i].transform.localPosition;//移動させる
-                        pieceStatus[tmp].isSelect = false;//駒の選択を解除
-                        gridStatus[i].isSelect = false;//マスの選択を解除
-                        isMoveStage = false;//他の駒を選べない状態を解除
-                        SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
-                        pieceSprite.color = Color.white;//駒の色を戻す
-                        masterLog.text = "移動終了";
-                        isPromotion = false;
-                        foreach (var col in piecesCollider)//駒の判定を戻す
-                        {
-                            col.enabled = true;
-                        }
-                        SpriteRenderer[] gridSprite = new SpriteRenderer[grid.Length];//マスの色を戻せるようにする
-                        for (int k = 0; k < grid.Length; k++)
-                        {
-                            gridSprite[k] = grid[k].transform.Find("ステージ選択個別背景").gameObject.GetComponent<SpriteRenderer>();
-                            gridSprite[k].color = gridStatus[k].myColor;//マスの色を戻す
-                        }
-                        pieceStatus[tmp].piecePosition = new Vector2(Mathf.Round(pieces[tmp].transform.localPosition.x), Mathf.Round(pieces[tmp].transform.localPosition.y)) / gridSize + new Vector2(4, 4);
-                        Debug.Log(pieceStatus[tmp].piecePosition);
+                        MovePiece(i, "移動完了");
                         if (playerManager == null)//プレイヤーデータがない場合手に入れる
                         {
                             PlayerManager[] tmpPm;
@@ -65,22 +46,7 @@ public class PiecesMoveNet : PiecesMove
                     }
                     else if (gridStatus[i].isSelect && !MoveLimit(i))
                     {
-                        pieceStatus[tmp].isSelect = false;//駒の選択を解除
-                        gridStatus[i].isSelect = false;//マスの選択を解除
-                        isMoveStage = false;//他の駒を選択できない状態を解除
-                        SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
-                        pieceSprite.color = Color.white;//駒の色を戻す
-                        SpriteRenderer[] gridSprite = new SpriteRenderer[grid.Length];//マスの色を戻せるようにする
-                        for (int k = 0; k < grid.Length; k++)
-                        {
-                            gridSprite[k] = grid[k].transform.Find("ステージ選択個別背景").gameObject.GetComponent<SpriteRenderer>();
-                            gridSprite[k].color = gridStatus[k].myColor;//マスの色を戻す
-                        }
-                        masterLog.text = "そこは移動できません";
-                        foreach (var col in piecesCollider)//駒の判定を戻す
-                        {
-                            col.enabled = true;
-                        }
+                        MovePiece(i, "そこは移動できません");
                         break;
                     }
                 }
