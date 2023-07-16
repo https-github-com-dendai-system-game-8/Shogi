@@ -7393,6 +7393,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2822284427053067861, guid: c4cc35f253898bb4f9c96542249d1a55, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1ab68a22fa34894429e677d09ab4d870, type: 3}
     - target: {fileID: 2822284427053067862, guid: c4cc35f253898bb4f9c96542249d1a55, type: 3}
       propertyPath: holder
       value: 1
@@ -12772,6 +12776,10 @@ PrefabInstance:
       propertyPath: promotionSprite
       value: 
       objectReference: {fileID: 21300000, guid: dc3b4e403851b8145871c7145445fb0c, type: 3}
+    - target: {fileID: 8213969224515144006, guid: 4e95bb0321b970145813271dff2e6f23, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2a986adee2a9b434a8f08aa39da12045, type: 3}
     - target: {fileID: 8213969224515144007, guid: 4e95bb0321b970145813271dff2e6f23, type: 3}
       propertyPath: m_RootOrder
       value: 29

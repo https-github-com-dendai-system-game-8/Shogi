@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public PieceStatus[] pieceStatus;
     private PiecesMoveNet moveNet;
     private bool playing = false;
+    private float tp;
     // Start is called before the first frame update
     void Start()
     {
@@ -72,7 +73,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             myNumber = -1;
         else
             myNumber = 1;
-        log.text = Convert.ToString(myNumber);
+        //log.text = Convert.ToString(myNumber);
     }
 
     // Update is called once per frame
@@ -106,7 +107,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     if (pieceStatus[j].pieceID == tmpi)
                     {
                         int tmptype = pieceStatus[j].type;
-                        pieceStatus[j].piecePoint = (int)stream.ReceiveNext();
+                        if (pieceStatus[j].player != myNumber)
+                            pieceStatus[j].piecePoint = (float)stream.ReceiveNext();
+                        else
+                            tp = (float)stream.ReceiveNext();
                         pieceStatus[j].type = (int)stream.ReceiveNext();
                         pieceStatus[j].promotionType = (int)stream.ReceiveNext();
                         pieceStatus[j].player = (int)stream.ReceiveNext();
