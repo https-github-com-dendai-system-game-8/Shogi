@@ -7,6 +7,7 @@ using Photon.Realtime;
 using UnityEngine.UIElements;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using System;
 
 public class PiecesMoveNet : PiecesMove
 {
@@ -81,6 +82,7 @@ public class PiecesMoveNet : PiecesMove
                     {
                         isMoveStage = true;//他の駒を選択できなくする
                         tmp = i;//選択された駒の番号を保存
+                        IndicatePoint();
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();//駒の色を変えられる状態にする
                         pieceSprite.color = Color.gray;//駒の色を変える
                         foreach (var col in piecesCollider)//駒の判定を消す
@@ -111,6 +113,7 @@ public class PiecesMoveNet : PiecesMove
                     else if (pieceStatus[i].CheckSelected())//持ち駒を選んだ場合
                     {
                         tmp = i;
+                        IndicatePoint();
                         isMoveStage = true;
                         isPawnPlay = true;
                         SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();//駒の色を変えられる状態にする
@@ -119,24 +122,7 @@ public class PiecesMoveNet : PiecesMove
                         {
                             col.enabled = false;
                         }
-                        SpriteRenderer[] gridSprite = new SpriteRenderer[pieceStatus[tmp].distination.Count];//マスの色を変えられる状態にする
-                        int j = 0;
-                        for (int k = 0; k < grid.Length; k++)
-                        {
-                            for (int l = 0; l < pieceStatus[tmp].distination.Count; l++)
-                            {
-                                if (gridStatus[k].myPosition - pieceStatus[tmp].piecePosition == pieceStatus[tmp].distination[l])
-                                    gridSprite[j++] = grid[k].transform.Find("ステージ選択個別背景").GetComponent<SpriteRenderer>();
-                            }
-
-                        }
-                        for (int k = 0; k < gridSprite.Length; k++)//色を変える
-                        {
-                            if (gridSprite[k] != null)
-                            {
-                                gridSprite[k].color = Color.gray;
-                            }
-                        }
+                        
                         masterLog.text = pieceStatus[tmp].role + "が選択されています";
                         break;
                     }
@@ -195,7 +181,10 @@ public class PiecesMoveNet : PiecesMove
         return isCanMove;
     }
 
-   
+    private void IndicatePoint()
+    {
+            playerLogNet.text = Convert.ToString(pieceStatus[tmp].piecePoint) + "p";
+    }
 
     public new void CheckPromotion(bool a)//成るときの処理、a==trueなら成る
     {
