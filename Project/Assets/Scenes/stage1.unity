@@ -6575,6 +6575,11 @@ MonoBehaviour:
   beforePosition: []
   isCanMove: 0
   isPromotion: 0
+  se: {fileID: 0}
+  clip:
+  - {fileID: 8300000, guid: fab6c1fd6e9f80a49bb91b3b2f6fbbf4, type: 3}
+  - {fileID: 8300000, guid: fab6c1fd6e9f80a49bb91b3b2f6fbbf4, type: 3}
+  - {fileID: 8300000, guid: fab6c1fd6e9f80a49bb91b3b2f6fbbf4, type: 3}
 --- !u!212 &209816803
 SpriteRenderer:
   m_ObjectHideFlags: 0

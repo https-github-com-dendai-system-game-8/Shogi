@@ -26,8 +26,9 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
     public int tmp = 0;//選択した駒の番号
     public Select sel;
     public Vector3[] beforePosition;//移動前の場所
-    public bool isCanMove = false;//動かせるかどうか
     public bool isPromotion = false;//成っている途中かどうか
+    public AudioSource se;
+    public AudioClip[] clip = new AudioClip[3];
 
     // Start is called before the first frame update
     void Start()
@@ -143,20 +144,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                 }
             }
         }
-        bool al = true;
-        for (int i = 0; i < pieceStatus.Length; i++)//駒が動いているならターンを変える
-        {
-            pieceStatus[i].piecePosition = new Vector2(Mathf.Round(pieces[i].transform.localPosition.x), Mathf.Round(pieces[i].transform.localPosition.y)) / gridSize + new Vector2(4, 4);
-            if (beforePosition[i] != pieceStatus[i].piecePosition && al)
-            {
-                Debug.Log("change");
-                turn *= -1;
-                al = false;
-            }
-            beforePosition[i] = pieceStatus[i].piecePosition;
-
-            PieceSafe(i);
-        }
+        ChangeTurn();
         int[] tmptype = { 0, 0 };
         int playertmp = 0;
         for (int i = 0; i < pieceStatus.Length; i++)//どちらかが王将を取っているならゲーム終了
@@ -173,24 +161,18 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
         {
             GridSafe(i);
         }
-        if (Input.GetKeyDown(KeyCode.Escape))//エスケープが押されたらゲームを閉じる
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
-        }
+
     }
 
     public bool MoveLimit(int gridNumber)//移動可能先かどうかを確かめる
     {
-        isCanMove = false;//動くかどうか
-        StartCoroutine(TestCoroutine(gridNumber));
-        
+        bool isCanMove = false;//動くかどうか
+
+        IEnumerator coroutine = TestCoroutine(gridNumber,isCanMove,ac => isCanMove = ac);
+        StartCoroutine(coroutine);
         return isCanMove;//移動可能かどうかを返す
     }
-    public IEnumerator TestCoroutine(int gridNumber)
+    public IEnumerator TestCoroutine(int gridNumber,bool isCanMove,Action<bool> ac)
     {
         int getPawn = -1;//駒を取る場合の取る駒の番号
         Vector3 deltaPosition;//ココと駒の位置が合えば移動可能
@@ -203,6 +185,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                 //味方の駒が乗っているなら移動不可にする
             {
                 isCanMove = false;
+                ac?.Invoke(isCanMove);
                 yield break;
             }
             else if (distinationgrid.myPosition == pieceStatus[i].piecePosition && pieceStatus[i].player != pieceStatus[tmp].player)
@@ -223,6 +206,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         if (pieceStatus[i].piecePosition.x == j + selectedPiece.piecePosition.x + (distinationgrid.myPosition.x - selectedPiece.piecePosition.x) / Mathf.Abs(distinationgrid.myPosition.x - selectedPiece.piecePosition.x) && distinationgrid.myPosition.y - pieceStatus[i].piecePosition.y == 0)
                         {
                             isCanMove =  false;
+                            ac?.Invoke(isCanMove);
                             yield break;
                         }
                     }
@@ -235,6 +219,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                         if (pieceStatus[i].piecePosition.y == j + selectedPiece.piecePosition.y + (distinationgrid.myPosition.y - selectedPiece.piecePosition.y) / Mathf.Abs(distinationgrid.myPosition.y - selectedPiece.piecePosition.y) && distinationgrid.myPosition.x - pieceStatus[i].piecePosition.x == 0)
                         {
                             isCanMove =  false;
+                            ac?.Invoke(isCanMove);
                             yield break;
                         }
                     }
@@ -249,6 +234,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                     if (pieceStatus[i].piecePosition == new Vector3(j + selectedPiece.piecePosition.x + (distinationgrid.myPosition.x - selectedPiece.piecePosition.x) / Mathf.Abs(distinationgrid.myPosition.x - selectedPiece.piecePosition.x), k + selectedPiece.piecePosition.y + (distinationgrid.myPosition.y - selectedPiece.piecePosition.y) / Mathf.Abs(distinationgrid.myPosition.y - selectedPiece.piecePosition.y)))
                     {
                         isCanMove = false;
+                        ac?.Invoke(isCanMove);
                         yield break;
                     }
                 }
@@ -269,13 +255,11 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
         {
             sel.OnClick();
             isCanTouch = false;
-            isCanMove = false;
             isPromotion = true;
             distinationgrid.isSelect = false;
             Debug.Log("待機開始");
             yield return new WaitUntil(() => isCanTouch);
             distinationgrid.isSelect = true;
-            isCanMove = true;
         }
         if (getPawn != -1 && isCanMove)//ココから駒を取る処理
         {
@@ -306,6 +290,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
         }
         if(isCanMove)
             pieces[tmp].transform.localPosition = grid[gridNumber].transform.localPosition;
+        ac?.Invoke(isCanMove);
     }
     
     public void PieceSafe(int i)
@@ -353,6 +338,10 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
         pieces[tmp].transform.localPosition = gridStatus[number].myPosition / gridSize - new Vector3(4, 4);
         pieceStatus[tmp].PieceInitialize();
         pawn.Remove(tmp);
+        int num = 0;
+        if (pieceStatus[tmp].player != 0)
+            num = 1;
+        pawnQuentity[num]--;
         pieceStatus[tmp].piecePosition = new Vector2(Mathf.Round(pieces[tmp].transform.localPosition.x), Mathf.Round(pieces[tmp].transform.localPosition.y)) / gridSize + new Vector2(4, 4);
     }
 
@@ -392,6 +381,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
             gridStatus[i] = grid[i].GetComponent<GridStatus>();
             gridStatus[i].myPosition = new Vector2(grid[i].transform.localPosition.x / gridSize + 4, grid[i].transform.localPosition.y / gridSize + 4);
         }
+        se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
     }
 
     private void IndicatePoint()
@@ -400,6 +390,26 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
             playerLog[0].text = Convert.ToString(pieceStatus[tmp].piecePoint) + "p";
         else if (pieceStatus[tmp].player == 1)
             playerLog[1].text = Convert.ToString(pieceStatus[tmp].piecePoint) + "p";
+    }
+
+    public void ChangeTurn()
+    {
+        bool al = true;
+        for (int i = 0; i < pieceStatus.Length; i++)//駒が動いているならターンを変える
+        {
+            pieceStatus[i].piecePosition = new Vector2(Mathf.Round(pieces[i].transform.localPosition.x), Mathf.Round(pieces[i].transform.localPosition.y)) / gridSize + new Vector2(4, 4);
+            if (beforePosition[i] != pieceStatus[i].piecePosition && al)
+            {
+                Debug.Log("change");
+                turn *= -1;
+                al = false;
+                se.clip = clip[0];
+                se.Play();
+            }
+            beforePosition[i] = pieceStatus[i].piecePosition;
+
+            PieceSafe(i);
+        }
     }
 
     private void GameEndEffect(int winner)//勝利時のエフェクト
@@ -433,6 +443,8 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
             pieceStatus[i].piecePosition = (pieces[i].transform.localPosition) / gridSize + new Vector3(4, 4);
         }
         isCanTouch = true;
+        se.clip = clip[0];
+        se.Play();
     }
     public void MovePiece(int i,string te)
     {

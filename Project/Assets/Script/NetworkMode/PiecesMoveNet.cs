@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.Rendering.UI;
 
 public class PiecesMoveNet : PiecesMove
 {
@@ -129,19 +130,7 @@ public class PiecesMoveNet : PiecesMove
                 }
             }
         }
-        bool al = true;
-        for (int i = 0; i < pieceStatus.Length; i++)
-        {
-            pieceStatus[i].piecePosition = new Vector2(Mathf.Round(pieces[i].transform.localPosition.x), Mathf.Round(pieces[i].transform.localPosition.y)) / gridSize + new Vector2(4, 4);
-            if (beforePosition[i] != pieceStatus[i].piecePosition && al)//ターンを切り替える
-            {
-                Debug.Log("change");
-                turn *= -1;
-                al = false;
-            }
-            beforePosition[i] = pieceStatus[i].piecePosition;
-            PieceSafe(i);
-        }
+        ChangeTurn();
         int[] tmptype = { 0, 0 };
         int playertmp = 0;
         for (int i = 0; i < pieceStatus.Length; i++)//どちらかが王将を取っているならゲーム終了
@@ -153,7 +142,7 @@ public class PiecesMoveNet : PiecesMove
             }
         }
         if (pieceStatus[tmptype[0]].player == pieceStatus[tmptype[1]].player)
-            GameEndEffect();
+            GameEndEffect(pieceStatus[tmptype[0]].player);
         for (int i = 0; i < gridStatus.Length; i++)
         {
             GridSafe(i);
@@ -164,26 +153,9 @@ public class PiecesMoveNet : PiecesMove
         }
     }
 
-    private new bool MoveLimit(int gridNumber)//移動可能先かどうかを確かめる
-    {
-        isCanMove = false;
-        StartCoroutine(TestCoroutine(gridNumber));
-        for (int i = 0; i < pieceStatus.Length; i++)
-        {
-            if (pieceStatus[i].type == 30)
-            {
-                GameEndEffect();
-                break;
-            }
-
-
-        }
-        return isCanMove;
-    }
-
     private void IndicatePoint()
     {
-            playerLogNet.text = Convert.ToString(pieceStatus[tmp].piecePoint) + "p";
+        playerLogNet.text = Convert.ToString(pieceStatus[tmp].piecePoint) + "p";
     }
 
     public new void CheckPromotion(bool a)//成るときの処理、a==trueなら成る
@@ -198,10 +170,9 @@ public class PiecesMoveNet : PiecesMove
         isCanTouch = true;
     }
 
-    private void GameEndEffect()
+    private void GameEndEffect(int ouPlayer)
     {
         isCanTouch = false;
-        playerLogNet.text = "YouWin!";//勝利ログ
         for (int i = 0; i < pieces.Length; i++)//ここで駒を元に戻す
         {
             if (pieceStatus[i].type > 20)//成っている駒を戻す
@@ -215,6 +186,9 @@ public class PiecesMoveNet : PiecesMove
             pieces[i].transform.localPosition = (pieceStatus[i].startPosition - new Vector3(4, 4)) * gridSize;//駒の位置を戻す
             pieceStatus[i].piecePosition = (pieces[i].transform.localPosition) / gridSize + new Vector3(4, 4);//駒の位置情報を戻す
         }
+        se.clip = clip[0];
+        se.Play();
+        masterLog.text = "勝負あり!";
         isCanTouch = true;
     }
     public override void OnConnectedToMaster()

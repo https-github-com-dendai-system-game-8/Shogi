@@ -138,7 +138,7 @@ public class EditManager : MonoBehaviour
         File.WriteAllLines(path, statusStr);
     }
 
-    private void ChangeValue()//’l‚ğ•Ï‰»‚³‚¹‚éˆ—
+    public void ChangeValue()//’l‚ğ•Ï‰»‚³‚¹‚éˆ—
     {
         Debug.Log("•Ï‰»‚¿‚ã‚¤");
         time++;

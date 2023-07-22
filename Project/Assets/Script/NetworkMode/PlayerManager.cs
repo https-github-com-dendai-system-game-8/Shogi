@@ -5,6 +5,7 @@ using UnityEngine;
 using Photon.Realtime;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -16,6 +17,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private PiecesMoveNet moveNet;
     private bool playing = false;
     private float tp;
+    private int beforePlayerNum = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,21 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         else
             myNumber = 1;
         pieceStatus = moveNet.pieceStatus;//駒のデータ
+        if (myNumber == 1)
+        {
+            for (int i = 0; i < pieceStatus.Length; i++)
+            {
+                for(int j = 0;j < pieceStatus.Length; j++)
+                {
+                    if (j == i)
+                        continue;
+                    if (pieceStatus[i].pieceID == -pieceStatus[j].pieceID)
+                    {
+                        (pieceStatus[i].piecePoint, pieceStatus[j].piecePoint) = (pieceStatus[j].piecePoint, pieceStatus[i].piecePoint);
+                    }
+                }
+            }
+        }
 
         if (photonView.IsMine)
         {
@@ -63,16 +80,21 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             playing = true;
             moveNet.isCanTouch = true;
+            pubLog.text = "対戦開始";
         }
         else if(players.Length != 2)
         {
             moveNet.isCanTouch = false;
             playing = false;
+            pubLog.text = "相手を待っています";
         }
         if (players[0] == player)
             myNumber = -1;
         else
             myNumber = 1;
+        if (beforePlayerNum > players.Length)
+            SceneManager.LoadScene("1StartScene");
+        beforePlayerNum = players.Length;
         //log.text = Convert.ToString(myNumber);
     }
 
@@ -107,7 +129,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     if (pieceStatus[j].pieceID == tmpi)
                     {
                         int tmptype = pieceStatus[j].type;
-                        if (pieceStatus[j].player != myNumber)
+                        if (pieceStatus[j].holder != myNumber)
                             pieceStatus[j].piecePoint = (float)stream.ReceiveNext();
                         else
                             tp = (float)stream.ReceiveNext();
@@ -127,6 +149,22 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             }
             
         }
+    }
+
+    public void GameEndLog(int ouPlayer)
+    {
+        if (photonView.IsMine)
+        {
+            if (ouPlayer == myNumber)
+            {
+                log.text = "YouWin!";
+            }
+            else
+            {
+                log.text = "YouLose";
+            }
+        }
+        
     }
 
 }

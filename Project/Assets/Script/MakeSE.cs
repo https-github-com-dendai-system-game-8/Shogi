@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MakeSE : MonoBehaviour
 {
-    [SerializeField] private AudioSource sound;
+    private AudioSource sound;
     [SerializeField] private AudioClip clip;
     // Start is called before the first frame update
     void Start()
