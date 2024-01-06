@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using System;
 
-public class DeckNumber : MonoBehaviour
+public class DeckNumber : MonoBehaviour//選ばれているデッキ
 {
     public static int[] selectedNumber = { 0, 1 };//選ばれているデッキ
     public static int index;//どちらのデッキを変更しようとしているか
@@ -19,9 +19,9 @@ public class DeckNumber : MonoBehaviour
 
     private void OnEnable()
     {
-        deckName = transform.Find("Text").gameObject.GetComponent<Text>();
-        deckName.text = File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + num + ".txt")[^1];
-        for(int i = 0;i < selectedNumber.Length;i++)
+        deckName = transform.Find("Text").gameObject.GetComponent<Text>();//
+        deckName.text = File.ReadAllLines(Application.dataPath + "/Resources/pieceStatus" + num + ".txt")[^1];//テキストファイルからデッキ名を読み取る
+        for(int i = 0;i < selectedNumber.Length;i++)//選ばれているデッキを表示
         {
             if(selectedNumber[i] != 0)
                 selectedNumber[i] = 0;
