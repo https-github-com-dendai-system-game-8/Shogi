@@ -27,6 +27,13 @@ public class PiecesMoveNet : PiecesMove
     {
         if (isCanTouch)
         {
+            if (playerManager == null)//プレイヤーデータがない場合手に入れる
+            {
+                PlayerManager[] tmpPm;
+                tmpPm = FindObjectsOfType<PlayerManager>();
+                playerManager = tmpPm;
+            }
+            PlayMyTurn();
             if (isMoveStage && !isPawnPlay)
             {
                 for (int i = 0; i < gridStatus.Length; i++)
@@ -35,15 +42,6 @@ public class PiecesMoveNet : PiecesMove
                     if (gridStatus[i].isSelect && MoveLimit(i))//移動先の選択が完了していたら移動させる
                     {
                         MovePiece(i, "移動完了");
-                        if (playerManager == null)//プレイヤーデータがない場合手に入れる
-                        {
-                            PlayerManager[] tmpPm;
-                            tmpPm = FindObjectsOfType<PlayerManager>();
-                            playerManager = tmpPm;
-                            break;
-                                
-                            
-                        }
                         break;
                     }
                     else if (gridStatus[i].isSelect && !MoveLimit(i))
@@ -123,7 +121,7 @@ public class PiecesMoveNet : PiecesMove
                         {
                             col.enabled = false;
                         }
-                        
+
                         masterLog.text = pieceStatus[tmp].role + "が選択されています";
                         break;
                     }

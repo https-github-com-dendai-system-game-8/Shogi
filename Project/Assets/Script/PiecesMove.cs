@@ -13,7 +13,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
     public Text masterLog;//全体のログ
     public bool isMoveStage = false;//駒を選択しているかどうか
     public bool isPawnPlay = false;//持ち駒を選択しているかどうか
-    public bool isCanTouch = true;//触れるかどうか
+    public bool isCanTouch = true;//駒に触れるかどうか
     public int turn = -1;//どちらのターンか
     public static float gridSize = 1f;//マスのサイズ
     public int[] pawnQuentity = {0,0};//取った駒の数
@@ -43,106 +43,8 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
     {
         if (isCanTouch)
         {
-            if (isMoveStage && !isPawnPlay)
-            {
-                for (int i = 0; i < gridStatus.Length; i++)
-                {
-
-                    if (gridStatus[i].isSelect && MoveLimit(i))//移動先の選択が完了していたら移動させる
-                    {//移動させる
-                        MovePiece(i, "移動完了");
-                        pieceStatus[tmp].piecePosition = new Vector2(Mathf.Round(pieces[tmp].transform.localPosition.x), Mathf.Round(pieces[tmp].transform.localPosition.y)) / gridSize + new Vector2(4, 4);
-                        Debug.Log(pieceStatus[tmp].piecePosition);
-
-                        break;
-                    }
-                    else if (gridStatus[i].isSelect && !MoveLimit(i))
-                    {
-                        MovePiece(i, "そこは移動できません");
-                        foreach (var col in piecesCollider)//駒の判定を戻す
-                        {
-                            col.enabled = true;
-                        }
-                        break;
-                    }
-                }
-            }
-            else if (isMoveStage && isPawnPlay)//持ち駒を置く
-            {
-                for(int i = 0;i < gridStatus.Length; i++)
-                {
-                    if (gridStatus[i].isSelect)
-                    {
-                        PawnPlay(i);
-                        foreach (var col in piecesCollider)//駒の判定を戻す
-                        {
-                            col.enabled = true;
-                        }
-                        SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
-                        pieceSprite.color = Color.white;//駒の色を戻す
-                        isMoveStage = false;//移動状態を解除
-                        isPawnPlay = false;//持ち駒をだす状態を解除
-                        pieceStatus[tmp].isSelect = false;//駒の選択を解除
-                        gridStatus[i].isSelect = false;//マスの選択を解除
-                        break;
-                    }
-                }
-            }
-            else if(!isMoveStage)
-            {
-                for (int i = 0; i < pieceStatus.Length; i++)
-                {
-                    if (pieceStatus[i].CheckSelected() && pieceStatus[i].piecePosition.y >= 0 && pieceStatus[i].piecePosition.y <= 8)
-                    {
-                        isMoveStage = true;//他の駒を選択できなくする
-                        tmp = i;//選択された駒の番号を保存
-                        IndicatePoint();
-                        SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();//駒の色を変えられる状態にする
-                        pieceSprite.color = Color.gray;//駒の色を変える
-                        SpriteRenderer[] gridSprite = new SpriteRenderer[pieceStatus[tmp].distination.Count];//マスの色を変えられる状態にする
-                        int j = 0;
-                        for (int k = 0; k < grid.Length; k++)
-                        {
-                            for (int l = 0; l < pieceStatus[tmp].distination.Count; l++)
-                            {
-                                if (gridStatus[k].myPosition - pieceStatus[tmp].piecePosition == pieceStatus[tmp].distination[l])
-                                    gridSprite[j++] = grid[k].transform.Find("ステージ選択個別背景").GetComponent<SpriteRenderer>();
-                            }
-                            
-                        }
-                        for(int k = 0;k < gridSprite.Length; k++)//色を変える
-                        {
-                            if (gridSprite[k] != null) 
-                            {
-                                gridSprite[k].color = Color.gray;
-                            }
-                        }
-                            
-                        
-                        foreach (var col in piecesCollider)//駒の判定を消す
-                        {
-                            col.enabled = false;
-                        }
-                        masterLog.text = pieceStatus[tmp].role + "を選択しました";
-                        break;
-                    }
-                    else if (pieceStatus[i].CheckSelected())
-                    {
-                        tmp = i;
-                        IndicatePoint();
-                        isMoveStage = true;
-                        isPawnPlay = true;
-                        SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();//駒の色を変えられる状態にする
-                        pieceSprite.color = Color.gray;//駒の色を変える
-                        foreach (var col in piecesCollider)//駒の判定を消す
-                        {
-                            col.enabled = false;
-                        }
-                        masterLog.text = pieceStatus[tmp].role + "を選択しました";
-                        break;
-                    }
-                }
-            }
+           PlayMyTurn();//自分のターンをする
+           IndicatePoint();
         }
         ChangeTurn();
         int[] tmptype = { 0, 0 };
@@ -164,15 +66,117 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
 
     }
 
-    public bool MoveLimit(int gridNumber)//移動可能先かどうかを確かめる
+    protected void PlayMyTurn()//自分のターンをする
+    {
+        if (isMoveStage && !isPawnPlay)
+        {
+            for (int i = 0; i < gridStatus.Length; i++)
+            {
+
+                if (gridStatus[i].isSelect && MoveLimit(i))//移動先の選択が完了していたら移動させる
+                {//移動させる
+                    MovePiece(i, "移動完了");
+                    pieceStatus[tmp].piecePosition = new Vector2(Mathf.Round(pieces[tmp].transform.localPosition.x), Mathf.Round(pieces[tmp].transform.localPosition.y)) / gridSize + new Vector2(4, 4);
+                    Debug.Log(pieceStatus[tmp].piecePosition);
+
+                    break;
+                }
+                else if (gridStatus[i].isSelect && !MoveLimit(i))
+                {
+                    MovePiece(i, "そこは移動できません");
+                    foreach (var col in piecesCollider)//駒の判定を戻す
+                    {
+                        col.enabled = true;
+                    }
+                    break;
+                }
+            }
+        }
+        else if (isMoveStage && isPawnPlay)//持ち駒を置く
+        {
+            for (int i = 0; i < gridStatus.Length; i++)
+            {
+                if (gridStatus[i].isSelect)
+                {
+                    PawnPlay(i);
+                    foreach (var col in piecesCollider)//駒の判定を戻す
+                    {
+                        col.enabled = true;
+                    }
+                    SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();
+                    pieceSprite.color = Color.white;//駒の色を戻す
+                    isMoveStage = false;//移動状態を解除
+                    isPawnPlay = false;//持ち駒をだす状態を解除
+                    pieceStatus[tmp].isSelect = false;//駒の選択を解除
+                    gridStatus[i].isSelect = false;//マスの選択を解除
+                    break;
+                }
+            }
+        }
+        else if (!isMoveStage)
+        {
+            for (int i = 0; i < pieceStatus.Length; i++)
+            {
+                if (pieceStatus[i].CheckSelected() && pieceStatus[i].piecePosition.y >= 0 && pieceStatus[i].piecePosition.y <= 8)
+                {
+                    isMoveStage = true;//他の駒を選択できなくする
+                    tmp = i;//選択された駒の番号を保存
+                    SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();//駒の色を変えられる状態にする
+                    pieceSprite.color = Color.gray;//駒の色を変える
+                    SpriteRenderer[] gridSprite = new SpriteRenderer[pieceStatus[tmp].distination.Count];//マスの色を変えられる状態にする
+                    int j = 0;
+                    for (int k = 0; k < grid.Length; k++)
+                    {
+                        for (int l = 0; l < pieceStatus[tmp].distination.Count; l++)
+                        {
+                            if (gridStatus[k].myPosition - pieceStatus[tmp].piecePosition == pieceStatus[tmp].distination[l])
+                                gridSprite[j++] = grid[k].transform.Find("ステージ選択個別背景").GetComponent<SpriteRenderer>();
+                        }
+
+                    }
+                    for (int k = 0; k < gridSprite.Length; k++)//移動可能なマスの色を変える
+                    {
+                        if (gridSprite[k] != null)
+                        {
+                            gridSprite[k].color = Color.gray;
+                        }
+                    }
+
+
+                    foreach (var col in piecesCollider)//駒の判定を消す
+                    {
+                        col.enabled = false;
+                    }
+                    masterLog.text = pieceStatus[tmp].role + "を選択しました";//何の種類の駒を選択したかを表示する
+                    break;
+                }
+                else if (pieceStatus[i].CheckSelected())
+                {
+                    tmp = i;
+                    isMoveStage = true;
+                    isPawnPlay = true;
+                    SpriteRenderer pieceSprite = pieces[tmp].GetComponent<SpriteRenderer>();//駒の色を変えられる状態にする
+                    pieceSprite.color = Color.gray;//駒の色を変える
+                    foreach (var col in piecesCollider)//駒の判定を消す
+                    {
+                        col.enabled = false;
+                    }
+                    masterLog.text = pieceStatus[tmp].role + "を選択しました";
+                    break;
+                }
+            }
+        }
+    }
+
+    protected bool MoveLimit(int gridNumber)//移動可能先かどうかを確かめる
     {
         bool isCanMove = false;//動くかどうか
 
-        IEnumerator coroutine = TestCoroutine(gridNumber,isCanMove,ac => isCanMove = ac);
+        IEnumerator coroutine = MovePiece(gridNumber,isCanMove,ac => isCanMove = ac);
         StartCoroutine(coroutine);
         return isCanMove;//移動可能かどうかを返す
     }
-    public IEnumerator TestCoroutine(int gridNumber,bool isCanMove,Action<bool> ac)
+    protected IEnumerator MovePiece(int gridNumber,bool isCanMove,Action<bool> ac)//駒を移動させる
     {
         int getPawn = -1;//駒を取る場合の取る駒の番号
         Vector3 deltaPosition;//ココと駒の位置が合えば移動可能
@@ -293,11 +297,11 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
         ac?.Invoke(isCanMove);
     }
     
-    public void PieceSafe(int i)
+    protected void PieceSafe(int i)//i番目の駒が選択できる状態にあるか
     {
         pieceStatus[i].IsSafe(isMoveStage, isCanTouch, turn);
     }
-    public void GridSafe(int i)
+    protected void GridSafe(int i)//i番目のマスが選択できる状態にあるか
     {
         gridStatus[i].IsSafe(isMoveStage, isCanTouch);
     }
@@ -314,7 +318,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
         isCanTouch = true;
     }
 
-    public void PawnPlay(int number) //持ち駒を出す処理
+    protected void PawnPlay(int number) //持ち駒を出す処理
     {
 
         for (int i = 0; i < pieceStatus.Length; i++)//置けるかどうか
@@ -331,7 +335,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
                 && pieceStatus[tmp].type >= 1 && pieceStatus[tmp].type <= 9)
 
             {
-                masterLog.text = "二歩です";
+                masterLog.text = "二歩です";//反則は二歩のみ防ぐ
                 return;
             }
         }
@@ -384,7 +388,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
         se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
     }
 
-    private void IndicatePoint()
+    private void IndicatePoint()//駒のポイントを表示する
     {
         if (pieceStatus[tmp].player == -1)
             playerLog[0].text = Convert.ToString(pieceStatus[tmp].piecePoint) + "p";
@@ -392,7 +396,7 @@ public class PiecesMove: MonoBehaviourPunCallbacks//駒の動きを制御するスクリプト
             playerLog[1].text = Convert.ToString(pieceStatus[tmp].piecePoint) + "p";
     }
 
-    public void ChangeTurn()
+    public void ChangeTurn()//ターンを切り替える
     {
         bool al = true;
         for (int i = 0; i < pieceStatus.Length; i++)//駒が動いているならターンを変える
