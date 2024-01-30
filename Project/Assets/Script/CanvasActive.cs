@@ -32,8 +32,11 @@ public class CanvasActive : MonoBehaviour//ƒƒjƒ…[‚ğŠJ‚¢‚½‚è•Â‚¶‚½‚è‚·‚é
     public void ReturnStage(bool set)
     {
         Debug.Log(Convert.ToInt32(set));
-        se.clip = seClip[Convert.ToInt32(set)];
-        se.Play();
+        if(se != null)
+        {
+            se.clip = seClip[Convert.ToInt32(set)];
+            se.Play();
+        }
         foreach (var obj in secondStage)
         {
             obj.SetActive(set);
